@@ -23,17 +23,20 @@ export function GameControls({
   if (room.phase === "waiting") {
     return (
       <div className="space-y-3">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-kaplan-royal">
+          Game Setup
+        </h3>
         {isHost ? (
           <button
             type="button"
             onClick={() => onAction("start-game")}
             disabled={loading || room.players.length < 2}
-            className="w-full min-h-11 rounded-xl bg-emerald-600 py-3 font-bold text-white shadow transition hover:bg-emerald-700 disabled:opacity-60"
+            className="btn-kaplan-action w-full disabled:opacity-60"
           >
-            {loading ? "Starting..." : "▶️ Start Game"}
+            {loading ? "Starting..." : "Start Game"}
           </button>
         ) : (
-          <p className="text-center text-sm text-emerald-700">
+          <p className="text-center text-sm text-kaplan-gray-dark">
             Waiting for the host to start the game...
           </p>
         )}
@@ -44,9 +47,9 @@ export function GameControls({
   if (room.phase === "ended") {
     const winner = room.players.find((p) => p.id === room.winnerId);
     return (
-      <div className="rounded-xl bg-yellow-100 p-4 text-center">
-        <p className="text-2xl font-bold text-emerald-900">
-          🏆 {winner?.name} Wins!
+      <div className="bg-kaplan-sky p-4 text-center">
+        <p className="text-2xl font-bold text-kaplan-royal">
+          {winner?.name} Wins!
         </p>
       </div>
     );
@@ -54,7 +57,7 @@ export function GameControls({
 
   if (!isMyTurn) {
     return (
-      <p className="text-center text-sm text-emerald-700">
+      <p className="text-center text-sm text-kaplan-gray-dark">
         Waiting for {currentPlayer?.name} to play...
       </p>
     );
@@ -75,9 +78,9 @@ export function GameControls({
           type="button"
           onClick={() => onAction("end-turn")}
           disabled={loading}
-          className="w-full min-h-11 rounded-xl bg-emerald-600 py-3 font-bold text-white shadow transition hover:bg-emerald-700 disabled:opacity-60"
+          className="btn-kaplan-primary w-full disabled:opacity-60"
         >
-          {loading ? "..." : "✅ End Turn"}
+          {loading ? "..." : "End Turn"}
         </button>
       )}
     </div>
@@ -99,7 +102,7 @@ function ActionButtons({
     const space = getSpace(pendingAction.spaceId);
     return (
       <div className="space-y-2">
-        <p className="text-center text-sm font-medium text-emerald-800">
+        <p className="text-center text-sm font-medium text-kaplan-royal">
           Buy {space.name} for ${pendingAction.price}?
         </p>
         <div className="flex gap-2">
@@ -107,15 +110,15 @@ function ActionButtons({
             type="button"
             onClick={() => onAction("buy-property")}
             disabled={loading}
-            className="min-h-11 flex-1 rounded-xl bg-green-600 py-3 font-bold text-white disabled:opacity-60"
+            className="btn-kaplan-primary min-h-11 flex-1 disabled:opacity-60"
           >
-            💰 Buy
+            Buy
           </button>
           <button
             type="button"
             onClick={() => onAction("skip-buy")}
             disabled={loading}
-            className="min-h-11 flex-1 rounded-xl bg-gray-400 py-3 font-bold text-white disabled:opacity-60"
+            className="min-h-11 flex-1 border border-kaplan-gray-light bg-white py-3 font-semibold text-kaplan-gray-dark disabled:opacity-60"
           >
             Pass
           </button>
@@ -134,7 +137,7 @@ function ActionButtons({
         type="button"
         onClick={() => onAction("end-turn")}
         disabled={loading}
-        className="w-full min-h-11 rounded-xl bg-orange-500 py-3 font-bold text-white disabled:opacity-60"
+        className="btn-kaplan-action w-full disabled:opacity-60"
       >
         {loading ? "..." : "Continue"}
       </button>

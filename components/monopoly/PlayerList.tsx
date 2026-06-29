@@ -14,7 +14,7 @@ export function PlayerList({
 }: PlayerListProps) {
   return (
     <div className="space-y-2">
-      <h3 className="text-sm font-bold uppercase tracking-wide text-emerald-800">
+      <h3 className="text-sm font-bold uppercase tracking-wide text-kaplan-royal">
         Players ({players.length})
       </h3>
       <ul className="space-y-2">
@@ -27,8 +27,10 @@ export function PlayerList({
           return (
             <li
               key={player.id}
-              className={`flex items-center gap-3 rounded-xl px-3 py-2 ${
-                isCurrent ? "bg-yellow-100 ring-2 ring-yellow-400" : "bg-white/70"
+              className={`flex items-center gap-3 border px-3 py-2 ${
+                isCurrent
+                  ? "border-kaplan-yellow bg-yellow-50"
+                  : "border-kaplan-gray-light bg-white"
               } ${player.isBankrupt ? "opacity-50" : ""}`}
             >
               <span
@@ -38,27 +40,31 @@ export function PlayerList({
                 {player.token}
               </span>
               <div className="min-w-0 flex-1">
-                <p className="truncate font-bold text-emerald-950">
+                <p className="truncate font-bold text-kaplan-royal">
                   {player.name}
                   {player.isHost && (
-                    <span className="ml-1 text-xs text-emerald-600">(host)</span>
+                    <span className="ml-1 text-xs text-kaplan-gray-dark">
+                      (host)
+                    </span>
                   )}
                 </p>
-                <p className="text-sm text-emerald-700">
+                <p className="text-sm text-kaplan-gray-dark">
                   ${player.money.toLocaleString()}
                   {player.isBankrupt && " · Bankrupt"}
                   {player.inJail && " · In Jail"}
                 </p>
               </div>
               {isCurrent && (
-                <span className="text-xs font-bold text-yellow-700">TURN</span>
+                <span className="text-xs font-bold text-kaplan-purple">
+                  TURN
+                </span>
               )}
             </li>
           );
         })}
       </ul>
       {players.length < MIN_PLAYERS && (
-        <p className="text-sm text-emerald-700">
+        <p className="text-sm text-kaplan-gray-dark">
           Need at least {MIN_PLAYERS} players to start
         </p>
       )}

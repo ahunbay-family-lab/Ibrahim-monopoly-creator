@@ -1,52 +1,146 @@
 import Link from "next/link";
+import Image from "next/image";
+import { KaplanShell } from "@/components/kaplan/KaplanShell";
+import { MONOPOLY_PRODUCT } from "@/lib/kaplan/theme";
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-full flex-1 flex-col items-center justify-center bg-gradient-to-br from-violet-200 via-fuchsia-100 to-orange-100 px-6 py-12">
-      <main className="relative z-10 flex w-full max-w-2xl flex-col items-center gap-10 text-center">
-        <header className="space-y-4">
-          <p className="text-sm font-semibold uppercase tracking-widest text-violet-700">
-            Ahunbay Family Lab
-          </p>
-          <h1 className="animate-wiggle text-4xl font-extrabold text-indigo-900 sm:text-6xl">
-            Online Monopoly
-          </h1>
-          <p className="text-lg text-indigo-800 sm:text-xl">
-            Play the classic board game with friends anywhere in the world!
-          </p>
-        </header>
+    <KaplanShell
+      breadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: "Games & Puzzles", href: "/" },
+        { label: MONOPOLY_PRODUCT.title },
+      ]}
+    >
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+          <div className="product-card-border p-4">
+            <div className="relative aspect-square overflow-hidden rounded bg-kaplan-sky">
+              <Image
+                src={MONOPOLY_PRODUCT.image}
+                alt={MONOPOLY_PRODUCT.title}
+                fill
+                className="object-contain p-4"
+                priority
+                unoptimized
+              />
+            </div>
+            <p className="mt-3 text-center text-xs text-kaplan-gray-dark">
+              In Stock &amp; Ready to Ship
+            </p>
+          </div>
 
-        <Link
-          href="/monopoly"
-          className="animate-pop min-h-11 rounded-2xl bg-emerald-600 px-10 py-4 text-xl font-bold text-white shadow-lg transition hover:bg-emerald-700 hover:shadow-xl"
-        >
-          🎲 Play Monopoly
-        </Link>
+          <div className="product-buy-box">
+            <h1 className="text-2xl font-bold text-kaplan-royal sm:text-3xl">
+              {MONOPOLY_PRODUCT.title}
+            </h1>
 
-        <section className="grid w-full gap-4 sm:grid-cols-3">
-          <FeatureCard emoji="🌍" title="Play Online" text="Join from any device with a room code" />
-          <FeatureCard emoji="👥" title="2–4 Players" text="Invite friends and family to your game" />
-          <FeatureCard emoji="🏠" title="Buy & Rent" text="Roll dice, buy properties, collect rent" />
+            <p className="mt-2 text-sm text-kaplan-gray-dark">
+              Item: <span className="font-semibold">{MONOPOLY_PRODUCT.id}</span>
+            </p>
+
+            <p className="mt-4 text-3xl font-bold text-kaplan-royal">
+              {MONOPOLY_PRODUCT.price}
+            </p>
+
+            <div className="mt-3">
+              <span className="badge-in-stock">In Stock</span>
+            </div>
+
+            <section className="mt-6">
+              <h2 className="text-lg font-bold text-kaplan-royal">
+                Product Highlights
+              </h2>
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-kaplan-gray-dark">
+                {MONOPOLY_PRODUCT.highlights.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+
+            <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-[176px_1fr]">
+              <div className="flex items-center justify-center rounded-full border border-kaplan-gray-light bg-white px-4 py-3 text-center font-semibold text-kaplan-royal">
+                Play Free
+              </div>
+              <Link href="/monopoly" className="btn-kaplan-action w-full">
+                Play Online Now
+              </Link>
+            </div>
+
+            <p className="mt-4 text-sm text-kaplan-gray-dark">
+              Or{" "}
+              <Link href="/monopoly" className="font-semibold text-kaplan-blue hover:underline">
+                join a friend&apos;s game
+              </Link>{" "}
+              with a room code.
+            </p>
+          </div>
+        </div>
+
+        <section className="mt-12 border-t border-kaplan-gray-light py-10">
+          <h2 className="text-2xl font-bold text-kaplan-royal">
+            About This Product
+          </h2>
+
+          <div className="mt-4 rounded border border-kaplan-yellow bg-yellow-50 p-4">
+            <p className="text-sm font-semibold text-kaplan-gray-dark">
+              Warning: Choking Hazard - Small Parts. Not for children under 3
+              years.
+            </p>
+          </div>
+
+          <p className="mt-4 text-kaplan-gray-dark">
+            <span className="font-semibold">{MONOPOLY_PRODUCT.ageRange}.</span>{" "}
+            {MONOPOLY_PRODUCT.description}
+          </p>
+
+          <h3 className="mt-8 text-xl font-bold text-kaplan-royal">Features</h3>
+          <ul className="mt-3 list-disc space-y-2 pl-5 text-kaplan-gray-dark">
+            {MONOPOLY_PRODUCT.features.map((feature) => (
+              <li key={feature}>{feature}</li>
+            ))}
+          </ul>
         </section>
-      </main>
-    </div>
+
+        <section className="border-t border-kaplan-gray-light py-10">
+          <h2 className="text-2xl font-bold text-kaplan-royal">Reviews</h2>
+          <div className="mt-6 grid gap-6 sm:grid-cols-2">
+            <ReviewCard
+              title="Great order, would buy again!"
+              author="A Teacher"
+              text="I received the games in a timely manner. I would order from this company again."
+            />
+            <ReviewCard
+              title="Great game to make learning fun and engaging!"
+              author="Mr. J"
+              text="Monopoly is such a great way to teach very important financial concepts in a very fun and engaging way!"
+            />
+          </div>
+        </section>
+      </div>
+    </KaplanShell>
   );
 }
 
-function FeatureCard({
-  emoji,
+function ReviewCard({
   title,
+  author,
   text,
 }: {
-  emoji: string;
   title: string;
+  author: string;
   text: string;
 }) {
   return (
-    <div className="rounded-2xl bg-white/70 p-5 shadow">
-      <span className="text-3xl">{emoji}</span>
-      <h2 className="mt-2 font-bold text-indigo-900">{title}</h2>
-      <p className="mt-1 text-sm text-indigo-700">{text}</p>
-    </div>
+    <article className="product-card-border p-5">
+      <div className="flex gap-1 text-kaplan-yellow">
+        {"★★★★★".split("").map((star, i) => (
+          <span key={i}>{star}</span>
+        ))}
+      </div>
+      <h3 className="mt-2 text-lg font-bold text-kaplan-royal">{title}</h3>
+      <p className="mt-2 text-sm text-kaplan-gray-dark">{text}</p>
+      <p className="mt-3 text-sm font-semibold text-kaplan-royal">{author}</p>
+    </article>
   );
 }

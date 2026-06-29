@@ -22,8 +22,10 @@ function SpaceCell({
 
   return (
     <div
-      className={`relative flex flex-col border border-emerald-900/20 bg-white ${
-        compact ? "h-12 w-16 text-[7px]" : "h-16 w-20 text-[8px] sm:h-20 sm:w-24 sm:text-[9px]"
+      className={`relative flex flex-col border border-gray-300 bg-white ${
+        compact
+          ? "h-12 w-16 text-[7px]"
+          : "h-16 w-20 text-[8px] sm:h-20 sm:w-24 sm:text-[9px]"
       }`}
       title={space.name}
     >
@@ -31,11 +33,11 @@ function SpaceCell({
         <div className={`h-2 w-full shrink-0 ${colorClass}`} />
       )}
       <div className="flex flex-1 flex-col items-center justify-center p-0.5 text-center leading-tight">
-        <span className="line-clamp-2 font-semibold text-emerald-950">
+        <span className="line-clamp-2 font-semibold text-kaplan-gray-dark">
           {space.name}
         </span>
         {space.price && (
-          <span className="text-emerald-700">${space.price}</span>
+          <span className="text-kaplan-royal">${space.price}</span>
         )}
       </div>
       {playersHere.length > 0 && (
@@ -71,9 +73,9 @@ function CornerCell({
   );
 
   return (
-    <div className="relative flex h-16 w-20 flex-col items-center justify-center border border-emerald-900/20 bg-emerald-50 p-1 text-center sm:h-20 sm:w-24">
+    <div className="relative flex h-16 w-20 flex-col items-center justify-center border border-gray-300 bg-kaplan-sky p-1 text-center sm:h-20 sm:w-24">
       <span className="text-lg">{emoji}</span>
-      <span className="text-[8px] font-bold text-emerald-900 sm:text-[9px]">
+      <span className="text-[8px] font-bold text-kaplan-royal sm:text-[9px]">
         {label}
       </span>
       {playersHere.length > 0 && (
@@ -96,9 +98,14 @@ export function GameBoard({ players }: GameBoardProps) {
   const right = BOARD.slice(31, 40);
 
   return (
-    <div className="mx-auto w-fit rounded-xl bg-emerald-800 p-2 shadow-2xl">
+    <div className="mx-auto w-fit border-4 border-kaplan-royal bg-kaplan-royal p-1 shadow-lg">
       <div className="grid grid-cols-[auto_1fr_auto] gap-0">
-        <CornerCell label="Free Parking" emoji="🅿️" players={players} position={20} />
+        <CornerCell
+          label="Free Parking"
+          emoji="🅿️"
+          players={players}
+          position={20}
+        />
 
         <div className="flex">
           {top.map((space) => (
@@ -106,7 +113,12 @@ export function GameBoard({ players }: GameBoardProps) {
           ))}
         </div>
 
-        <CornerCell label="Go To Jail" emoji="👮" players={players} position={30} />
+        <CornerCell
+          label="Go To Jail"
+          emoji="👮"
+          players={players}
+          position={30}
+        />
 
         <div className="flex flex-col">
           {left.map((space) => (
@@ -114,12 +126,12 @@ export function GameBoard({ players }: GameBoardProps) {
           ))}
         </div>
 
-        <div className="flex min-h-32 min-w-48 flex-col items-center justify-center bg-emerald-700 p-4 text-center sm:min-h-40 sm:min-w-56">
-          <p className="text-2xl font-extrabold text-yellow-300 sm:text-3xl">
+        <div className="flex min-h-32 min-w-48 flex-col items-center justify-center bg-monopoly-red p-4 text-center sm:min-h-40 sm:min-w-56">
+          <p className="text-2xl font-extrabold tracking-wider text-white sm:text-3xl">
             MONOPOLY
           </p>
-          <p className="mt-1 text-xs text-emerald-100 sm:text-sm">
-            Family Lab Edition
+          <p className="mt-1 text-xs text-white/90 sm:text-sm">
+            Classic Edition
           </p>
         </div>
 

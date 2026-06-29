@@ -51,15 +51,15 @@ export function MonopolyLobby() {
   }
 
   return (
-    <div className="w-full max-w-md rounded-3xl bg-white/90 p-8 shadow-xl backdrop-blur">
-      <div className="mb-6 flex rounded-2xl bg-emerald-100 p-1">
+    <div className="w-full">
+      <div className="mb-6 flex border border-kaplan-gray-light p-1">
         <button
           type="button"
           onClick={() => setMode("create")}
-          className={`flex-1 rounded-xl py-3 text-sm font-bold transition ${
+          className={`flex-1 py-3 text-sm font-semibold transition ${
             mode === "create"
-              ? "bg-emerald-600 text-white shadow"
-              : "text-emerald-800"
+              ? "bg-kaplan-royal text-white"
+              : "text-kaplan-royal hover:bg-kaplan-sky"
           }`}
         >
           Create Game
@@ -67,10 +67,10 @@ export function MonopolyLobby() {
         <button
           type="button"
           onClick={() => setMode("join")}
-          className={`flex-1 rounded-xl py-3 text-sm font-bold transition ${
+          className={`flex-1 py-3 text-sm font-semibold transition ${
             mode === "join"
-              ? "bg-emerald-600 text-white shadow"
-              : "text-emerald-800"
+              ? "bg-kaplan-royal text-white"
+              : "text-kaplan-royal hover:bg-kaplan-sky"
           }`}
         >
           Join Game
@@ -81,7 +81,7 @@ export function MonopolyLobby() {
         <div>
           <label
             htmlFor="player-name"
-            className="mb-1 block text-sm font-semibold text-emerald-900"
+            className="mb-1 block text-sm font-semibold text-kaplan-royal"
           >
             Your Name
           </label>
@@ -93,7 +93,7 @@ export function MonopolyLobby() {
             placeholder="Enter your name"
             maxLength={20}
             required
-            className="w-full rounded-xl border-2 border-emerald-200 px-4 py-3 text-lg text-emerald-950 outline-none focus:border-emerald-500"
+            className="w-full border border-kaplan-gray-light px-4 py-3 text-kaplan-gray-dark outline-none focus:border-kaplan-royal"
           />
         </div>
 
@@ -101,7 +101,7 @@ export function MonopolyLobby() {
           <div>
             <label
               htmlFor="room-code"
-              className="mb-1 block text-sm font-semibold text-emerald-900"
+              className="mb-1 block text-sm font-semibold text-kaplan-royal"
             >
               Room Code
             </label>
@@ -115,13 +115,13 @@ export function MonopolyLobby() {
               placeholder="ABC123"
               maxLength={6}
               required
-              className="w-full rounded-xl border-2 border-emerald-200 px-4 py-3 text-center text-2xl font-bold tracking-widest text-emerald-950 outline-none focus:border-emerald-500"
+              className="w-full border border-kaplan-gray-light px-4 py-3 text-center text-2xl font-bold tracking-widest text-kaplan-royal outline-none focus:border-kaplan-royal"
             />
           </div>
         )}
 
         {error && (
-          <p className="rounded-xl bg-red-100 px-4 py-2 text-sm font-medium text-red-700">
+          <p className="bg-red-50 px-4 py-2 text-sm font-medium text-kaplan-red">
             {error}
           </p>
         )}
@@ -129,13 +129,13 @@ export function MonopolyLobby() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full rounded-xl bg-emerald-600 py-4 text-lg font-bold text-white shadow-lg transition hover:bg-emerald-700 disabled:opacity-60"
+          className="btn-kaplan-action w-full disabled:opacity-60"
         >
           {loading
             ? "Loading..."
             : mode === "create"
-              ? "🎲 Create Room"
-              : "🚪 Join Room"}
+              ? "Create Room"
+              : "Join Room"}
         </button>
       </form>
     </div>

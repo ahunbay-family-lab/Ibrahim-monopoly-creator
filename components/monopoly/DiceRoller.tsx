@@ -43,11 +43,11 @@ function Die({ value }: { value: number }) {
   };
 
   return (
-    <div className="grid h-14 w-14 grid-cols-3 grid-rows-3 gap-1 rounded-xl bg-white p-2 shadow-md">
+    <div className="grid h-14 w-14 grid-cols-3 grid-rows-3 gap-1 rounded bg-white p-2 shadow border border-kaplan-gray-light">
       {dots[value].map(([row, col], i) => (
         <div
           key={i}
-          className="rounded-full bg-emerald-800"
+          className="rounded-full bg-kaplan-royal"
           style={{
             gridRow: row + 1,
             gridColumn: col + 1,
@@ -72,11 +72,11 @@ export function DiceRoller({
             <Die value={lastRoll.die1} />
             <Die value={lastRoll.die2} />
             <div className="text-center">
-              <p className="text-2xl font-bold text-emerald-900">
+              <p className="text-2xl font-bold text-kaplan-royal">
                 = {lastRoll.total}
               </p>
               {lastRoll.isDoubles && (
-                <p className="text-sm font-semibold text-orange-600">
+                <p className="text-sm font-semibold text-kaplan-purple">
                   Doubles!
                 </p>
               )}
@@ -84,10 +84,10 @@ export function DiceRoller({
           </>
         ) : (
           <div className="flex gap-4">
-            <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white/50 text-2xl shadow">
+            <div className="flex h-14 w-14 items-center justify-center border border-kaplan-gray-light bg-kaplan-sky text-2xl">
               ?
             </div>
-            <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white/50 text-2xl shadow">
+            <div className="flex h-14 w-14 items-center justify-center border border-kaplan-gray-light bg-kaplan-sky text-2xl">
               ?
             </div>
           </div>
@@ -99,10 +99,10 @@ export function DiceRoller({
           type="button"
           onClick={onRoll}
           disabled={loading}
-          className="min-h-11 rounded-xl bg-yellow-400 px-8 py-3 text-lg font-bold text-emerald-950 shadow-lg transition hover:bg-yellow-300 disabled:opacity-60"
+          className="btn-kaplan-primary disabled:opacity-60"
           aria-label="Roll dice"
         >
-          {loading ? "Rolling..." : "🎲 Roll Dice"}
+          {loading ? "Rolling..." : "Roll Dice"}
         </button>
       )}
     </div>

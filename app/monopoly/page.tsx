@@ -1,53 +1,56 @@
-import Link from "next/link";
+import { KaplanShell } from "@/components/kaplan/KaplanShell";
 import { MonopolyLobby } from "@/components/monopoly/MonopolyLobby";
+import { MONOPOLY_PRODUCT } from "@/lib/kaplan/theme";
 
 export default function MonopolyPage() {
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-emerald-300 via-green-200 to-teal-200 px-6 py-12">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <span className="animate-float absolute left-[10%] top-[15%] text-4xl opacity-60">
-          🏠
-        </span>
-        <span className="animate-float absolute right-[12%] top-[20%] text-3xl opacity-60 [animation-delay:0.5s]">
-          💵
-        </span>
-        <span className="animate-float absolute bottom-[20%] left-[15%] text-3xl opacity-60 [animation-delay:1s]">
-          🎲
-        </span>
-        <span className="animate-float absolute bottom-[25%] right-[10%] text-4xl opacity-60 [animation-delay:1.5s]">
-          🚂
-        </span>
+    <KaplanShell
+      breadcrumbs={[
+        { label: "Home", href: "/" },
+        { label: "Play Online", href: "/monopoly" },
+        { label: "Create or Join Game" },
+      ]}
+    >
+      <div className="mx-auto max-w-7xl px-4 py-8">
+        <div className="grid gap-8 lg:grid-cols-2">
+          <section>
+            <h1 className="text-2xl font-bold text-kaplan-royal sm:text-3xl">
+              Play {MONOPOLY_PRODUCT.title} Online
+            </h1>
+            <p className="mt-3 text-kaplan-gray-dark">
+              Create a game room and share your code with friends, or join an
+              existing game. Play the classic property trading game from
+              anywhere in the world!
+            </p>
+
+            <div className="mt-6 product-card-border p-5">
+              <h2 className="font-bold text-kaplan-royal">How to Play Online</h2>
+              <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-kaplan-gray-dark">
+                <li>Create a game and share your 6-letter room code</li>
+                <li>Friends join with the code (2–4 players online)</li>
+                <li>The host starts when everyone is ready</li>
+                <li>Roll dice, buy properties, and collect rent!</li>
+              </ol>
+            </div>
+
+            <div className="mt-6 product-card-border p-5">
+              <h2 className="font-bold text-kaplan-royal">Product Highlights</h2>
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-kaplan-gray-dark">
+                {MONOPOLY_PRODUCT.highlights.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+
+          <section className="product-card-border p-6 sm:p-8">
+            <h2 className="mb-6 text-center text-xl font-bold text-kaplan-royal">
+              Start or Join a Game
+            </h2>
+            <MonopolyLobby />
+          </section>
+        </div>
       </div>
-
-      <main className="relative z-10 flex w-full max-w-lg flex-col items-center gap-8 text-center">
-        <header className="space-y-3">
-          <Link
-            href="/"
-            className="text-sm font-semibold text-emerald-800 hover:underline"
-          >
-            ← Back to Home
-          </Link>
-          <h1 className="animate-wiggle text-4xl font-extrabold text-emerald-950 sm:text-5xl">
-            🎲 Online Monopoly
-          </h1>
-          <p className="text-lg text-emerald-800">
-            Create a room, share the code with friends, and play together from
-            anywhere in the world!
-          </p>
-        </header>
-
-        <MonopolyLobby />
-
-        <section className="rounded-2xl bg-white/60 px-6 py-4 text-left text-sm text-emerald-800">
-          <h2 className="mb-2 font-bold">How to play</h2>
-          <ol className="list-inside list-decimal space-y-1">
-            <li>Create a game and share your 6-letter room code</li>
-            <li>Friends join with the code (2–4 players)</li>
-            <li>The host starts the game when everyone is ready</li>
-            <li>Roll dice, buy properties, and collect rent!</li>
-          </ol>
-        </section>
-      </main>
-    </div>
+    </KaplanShell>
   );
 }

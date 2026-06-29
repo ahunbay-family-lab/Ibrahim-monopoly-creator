@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { MonopolyGame } from "@/components/monopoly/MonopolyGame";
+import { KaplanShell } from "@/components/kaplan/KaplanShell";
 import { loadSession } from "@/lib/monopoly/use-game-room";
 
 function getPlayerIdForRoom(roomId: string): string | null {
@@ -27,9 +28,13 @@ export default function MonopolyRoomPage() {
 
   if (!playerId) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-emerald-200 via-green-100 to-teal-100">
-        <p className="text-xl font-bold text-emerald-800">Joining room...</p>
-      </div>
+      <KaplanShell>
+        <div className="flex min-h-[50vh] items-center justify-center">
+          <p className="text-xl font-semibold text-kaplan-royal">
+            Joining room...
+          </p>
+        </div>
+      </KaplanShell>
     );
   }
 
