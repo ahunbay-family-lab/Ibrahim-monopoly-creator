@@ -61,3 +61,18 @@ body {
 .animate-pop {
   animation: pop 0.35s ease-out;
 }
+
+.spiky-title {
+  text-shadow:
+    0 0 10px rgba(220, 38, 38, 0.7),
+    1px 1px 0 #000,
+    -1px -1px 0 #000,
+    2px 0 0 #450a0a,
+    -2px 0 0 #450a0a,
+    0 2px 0 #450a0a,
+    0 -2px 0 #450a0a,
+    3px 2px 0 #1a0000,
+    -3px -2px 0 #1a0000;
+  filter: drop-shadow(0 0 14px rgba(239, 68, 68, 0.45));
+  letter-spacing: 0.08em;
+}
