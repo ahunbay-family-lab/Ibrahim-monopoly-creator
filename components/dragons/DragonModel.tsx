@@ -28,8 +28,8 @@ function applyTribeColors(scene: THREE.Object3D, dragon: DragonCharacter) {
       const next = material.clone() as MeshStandardMaterial;
 
       if (next.map) {
-        next.color.set("#ffffff");
         next.map.colorSpace = THREE.SRGBColorSpace;
+        next.color.set("#ffffff");
       } else if ("color" in next) {
         next.color.copy(primary);
       }
@@ -70,7 +70,7 @@ function normalizeModel(scene: THREE.Object3D) {
   const maxDim = Math.max(size.x, size.y, size.z);
 
   if (maxDim > 0) {
-    const scale = 2.2 / maxDim;
+    const scale = 2.8 / maxDim;
     scene.scale.setScalar(scale);
     scene.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
   }
