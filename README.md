@@ -1,20 +1,27 @@
-# Online Monopoly
+# Dragons 3D
 
-Play **Monopoly online** with friends anywhere in the world — built in the [Ahunbay Family Lab](https://github.com/ahunbay-family-lab).
+Explore **ten dragon tribes in 3D** — built in the [Ahunbay Family Lab](https://github.com/ahunbay-family-lab).
 
-Create a game room, share a 6-letter code, and play together in your browser!
+Spin each dragon around, study their colors and features, and get ready to name your heroes!
 
 ---
 
 ## What is this?
 
-An online multiplayer Monopoly game where you can:
+A 3D dragon showcase app featuring ten unique dragon tribes:
 
-- **Create a room** and invite friends with a shareable code
-- **Join from anywhere** — phones, tablets, or laptops
-- **Play classic Monopoly** — roll dice, buy properties, pay rent, and win!
+- **SkyWing** — fiery red with blazing wings
+- **MudWing** — thick brown armor and a powerful build
+- **SeaWing** — deep blue with glowing markings
+- **RainWing** — rainbow scales that shimmer
+- **SandWing** — pale gold with a venomous tail barb
+- **NightWing** — midnight black with starry wings
+- **LeafWing** — leaf-shaped wings and jungle green
+- **IceWing** — shimmering ice with sharp spikes
+- **HiveWing** — yellow and black stripes
+- **SilkWing** — butterfly wings and antennae
 
-Built with Next.js, TypeScript, React, and Tailwind CSS.
+Built with Next.js, TypeScript, React, Three.js, and Tailwind CSS.
 
 ---
 
@@ -34,7 +41,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) and click **Play Monopoly**.
+Open [http://localhost:3000](http://localhost:3000) to see the dragons!
 
 ### Useful commands
 
@@ -46,61 +53,19 @@ Open [http://localhost:3000](http://localhost:3000) and click **Play Monopoly**.
 
 ---
 
-## How to Play
-
-1. Go to **Play Monopoly** on the home page
-2. **Create a game** and enter your name
-3. Share the **6-letter room code** with friends
-4. Friends click **Join Game** and enter the code
-5. When 2–4 players are ready, the **host starts the game**
-6. Take turns rolling dice, buying properties, and collecting rent!
-
-### Game rules (simplified)
-
-- Everyone starts with **$1,500**
-- Pass **GO** to collect **$200**
-- Land on an unowned property? You can **buy it** or pass
-- Land on someone else's property? **Pay rent**
-- Run out of money? You're **bankrupt** — last player standing wins!
-
----
-
 ## Project Structure
 
 ```
 /
 ├── app/
-│   ├── page.tsx                    # Home page
-│   ├── monopoly/page.tsx           # Lobby (create/join)
-│   ├── monopoly/[roomId]/page.tsx  # Game room
-│   └── api/monopoly/               # Game API routes
-├── components/monopoly/            # Game UI components
-├── lib/monopoly/                   # Board, rules, game logic
+│   └── page.tsx                    # Home page with dragon roster
+├── components/dragons/             # 3D dragon UI components
+├── lib/dragons/                    # Dragon character data and types
 └── styles/globals.css              # Global styles
 ```
 
 ---
 
-## Deploying to Vercel
-
-1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com) and import your repo
-3. Click **Deploy**
-
-Vercel detects Next.js automatically.
-
-> **Note:** Game rooms are stored in server memory. For a production app with many players, you'd eventually want a database (like Redis or Supabase) so rooms persist across server restarts.
-
----
-
-## For AI Assistants
-
-Share [AGENTS.md](./AGENTS.md) with your AI coding tool so it follows Family Lab conventions.
-
----
-
 ## License
 
-[MIT License](./LICENSE)
-
-**Happy building!** 🎲
+MIT — see [LICENSE](LICENSE) for details.
