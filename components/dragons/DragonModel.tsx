@@ -1,8 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import { ContactShadows, Float, useTexture } from "@react-three/drei";
 import type { Group } from "three";
+import * as THREE from "three";
 import type { DragonCharacter } from "@/lib/dragons/types";
 
 type DragonModelProps = {
@@ -10,234 +12,78 @@ type DragonModelProps = {
   autoRotate?: boolean;
 };
 
-function ClassicWing({
-  side,
-  colors,
-  starry,
+function curvedPlaneGeometry(width: number, height: number) {
+  const geometry = new THREE.PlaneGeometry(width, height, 64, 48);
+  const positions = geometry.attributes.position;
+
+  for (let index = 0; index < positions.count; index += 1) {
+    const x = positions.getX(index);
+    const y = positions.getY(index);
+    const curve = Math.cos(x * 1.1) * 0.1 + Math.sin(y * 1.4) * 0.03;
+    positions.setZ(index, curve);
+  }
+
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+function DragonTexturedMesh({
+  texture,
+  dragon,
 }: {
-  side: "left" | "right";
-  colors: DragonCharacter["colors"];
-  starry?: boolean;
+  texture: THREE.Texture;
+  dragon: DragonCharacter;
 }) {
-  const x = side === "left" ? -0.55 : 0.55;
-  const rotationZ = side === "left" ? 0.4 : -0.4;
+  const geometry = useMemo(() => curvedPlaneGeometry(3.4, 1.92), []);
+
+  const displayTexture = useMemo(() => {
+    const configured = texture.clone();
+    configured.colorSpace = THREE.SRGBColorSpace;
+    configured.anisotropy = 16;
+    return configured;
+  }, [texture]);
 
   return (
-    <group position={[x, 0.15, 0]} rotation={[0.2, 0, rotationZ]}>
-      <mesh>
-        <boxGeometry args={[0.05, 0.9, 0.6]} />
-        <meshStandardMaterial color={colors.wing} side={2} />
-      </mesh>
-      <mesh position={[0, -0.1, -0.05]} rotation={[0.3, 0, 0]}>
-        <boxGeometry args={[0.04, 0.7, 0.5]} />
-        <meshStandardMaterial
-          color={starry ? colors.wingInner ?? "#e8e8ff" : colors.wingInner ?? colors.accent}
-          side={2}
-        />
-      </mesh>
-      {starry &&
-        [-0.2, 0, 0.2].map((offset) => (
-          <mesh key={offset} position={[0, offset, -0.08]}>
-            <sphereGeometry args={[0.03, 6, 6]} />
-            <meshStandardMaterial color="#ffffff" emissive="#ffffff" emissiveIntensity={0.8} />
-          </mesh>
-        ))}
-    </group>
-  );
-}
-
-function LeafWing({ side, colors }: { side: "left" | "right"; colors: DragonCharacter["colors"] }) {
-  const x = side === "left" ? -0.45 : 0.45;
-  const rotationZ = side === "left" ? 0.5 : -0.5;
-
-  return (
-    <>
-      {[0.3, -0.25].map((yOffset, index) => (
-        <group
-          key={index}
-          position={[x, yOffset, 0]}
-          rotation={[0.15, 0, rotationZ + (index === 0 ? 0.2 : -0.2)]}
-        >
-          <mesh scale={[1, 1.3, 0.15]}>
-            <sphereGeometry args={[0.35, 8, 8]} />
-            <meshStandardMaterial color={colors.wing} side={2} />
-          </mesh>
-        </group>
-      ))}
-    </>
-  );
-}
-
-function InsectWing({ side, colors }: { side: "left" | "right"; colors: DragonCharacter["colors"] }) {
-  const x = side === "left" ? -0.4 : 0.4;
-  const rotationZ = side === "left" ? 0.35 : -0.35;
-
-  return (
-    <>
-      {[0.25, -0.2].map((yOffset, index) => (
-        <group
-          key={index}
-          position={[x, yOffset, 0]}
-          rotation={[0.1, 0, rotationZ]}
-        >
-          <mesh scale={[0.6, 1.2, 0.05]}>
-            <boxGeometry args={[0.5, 0.7, 0.05]} />
-            <meshStandardMaterial color={colors.wing} transparent opacity={0.7} side={2} />
-          </mesh>
-        </group>
-      ))}
-    </>
-  );
-}
-
-function ButterflyWing({ side, colors }: { side: "left" | "right"; colors: DragonCharacter["colors"] }) {
-  const x = side === "left" ? -0.5 : 0.5;
-  const rotationZ = side === "left" ? 0.45 : -0.45;
-
-  return (
-    <group position={[x, 0.1, 0]} rotation={[0.1, 0, rotationZ]}>
-      <mesh scale={[1.1, 1.4, 0.2]}>
-        <sphereGeometry args={[0.4, 10, 10]} />
-        <meshStandardMaterial color={colors.wing} side={2} />
-      </mesh>
-      <mesh position={[0, -0.15, 0]} scale={[0.7, 0.9, 0.15]}>
-        <sphereGeometry args={[0.3, 8, 8]} />
-        <meshStandardMaterial color={colors.wingInner ?? colors.accent} side={2} />
-      </mesh>
-    </group>
-  );
-}
-
-function Wings({ dragon }: { dragon: DragonCharacter }) {
-  const { colors, traits } = dragon;
-  const sides: Array<"left" | "right"> = ["left", "right"];
-
-  if (traits.wingStyle === "leaf") {
-    return (
-      <>
-        {sides.map((side) => (
-          <LeafWing key={side} side={side} colors={colors} />
-        ))}
-      </>
-    );
-  }
-
-  if (traits.wingStyle === "insect") {
-    return (
-      <>
-        {sides.map((side) => (
-          <InsectWing key={side} side={side} colors={colors} />
-        ))}
-      </>
-    );
-  }
-
-  if (traits.wingStyle === "butterfly") {
-    return (
-      <>
-        {sides.map((side) => (
-          <ButterflyWing key={side} side={side} colors={colors} />
-        ))}
-      </>
-    );
-  }
-
-  return (
-    <>
-      {sides.map((side) => (
-        <ClassicWing
-          key={side}
-          side={side}
-          colors={colors}
-          starry={traits.hasStarryWings}
-        />
-      ))}
-    </>
+    <mesh geometry={geometry} castShadow receiveShadow>
+      <meshPhysicalMaterial
+        map={displayTexture}
+        transparent
+        roughness={0.38}
+        metalness={dragon.id === "icewing" ? 0.4 : 0.05}
+        clearcoat={0.35}
+        clearcoatRoughness={0.25}
+        envMapIntensity={1.4}
+        emissive={
+          dragon.traits.hasBioluminescence ? new THREE.Color(dragon.colors.accent) : "#000000"
+        }
+        emissiveIntensity={dragon.traits.hasBioluminescence ? 0.15 : 0}
+      />
+    </mesh>
   );
 }
 
 export function DragonModel({ dragon, autoRotate = true }: DragonModelProps) {
   const groupRef = useRef<Group>(null);
-  const { colors, traits } = dragon;
-  const bodyScale = traits.bulky ? 1.15 : traits.slim ? 0.9 : 1;
+  const texture = useTexture(dragon.imageUrl);
 
   useFrame((_, delta) => {
     if (autoRotate && groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.5;
+      groupRef.current.rotation.y += delta * 0.35;
     }
   });
 
   return (
-    <group ref={groupRef} scale={bodyScale}>
-      <mesh position={[0, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-        <capsuleGeometry args={[0.32, 1.1, 8, 16]} />
-        <meshStandardMaterial color={colors.primary} />
-      </mesh>
-
-      <mesh position={[0.65, 0.1, 0]} rotation={[0, 0, -0.3]}>
-        <sphereGeometry args={[0.28, 12, 12]} />
-        <meshStandardMaterial color={colors.primary} />
-      </mesh>
-
-      <mesh position={[0.88, 0.05, 0]} rotation={[0, 0, -0.1]}>
-        <coneGeometry args={[0.12, 0.35, 8]} />
-        <meshStandardMaterial color={colors.secondary} />
-      </mesh>
-
-      <mesh position={[-0.7, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-        <coneGeometry args={[0.08, 0.5, 8]} />
-        <meshStandardMaterial color={colors.primary} />
-      </mesh>
-
-      {traits.hasTailBarb && (
-        <mesh position={[-0.95, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
-          <coneGeometry args={[0.06, 0.2, 6]} />
-          <meshStandardMaterial color={colors.accent} />
-        </mesh>
-      )}
-
-      <Wings dragon={dragon} />
-
-      {traits.hasSpikes &&
-        [0.55, 0.35, 0.15, -0.05, -0.25].map((y, index) => (
-          <mesh key={index} position={[0.5 - index * 0.15, y, 0]} rotation={[0, 0, -0.5]}>
-            <coneGeometry args={[0.04, 0.15, 6]} />
-            <meshStandardMaterial color={colors.accent} />
-          </mesh>
-        ))}
-
-      {traits.hasAntennae && (
-        <>
-          <mesh position={[0.82, 0.28, 0.08]} rotation={[0.3, 0, 0.4]}>
-            <cylinderGeometry args={[0.015, 0.015, 0.35, 6]} />
-            <meshStandardMaterial color={colors.accent} />
-          </mesh>
-          <mesh position={[0.82, 0.28, -0.08]} rotation={[-0.3, 0, 0.4]}>
-            <cylinderGeometry args={[0.015, 0.015, 0.35, 6]} />
-            <meshStandardMaterial color={colors.accent} />
-          </mesh>
-        </>
-      )}
-
-      {traits.hasBioluminescence &&
-        [-0.2, 0, 0.2].map((y) => (
-          <mesh key={y} position={[0.1, y, 0.34]}>
-            <sphereGeometry args={[0.05, 8, 8]} />
-            <meshStandardMaterial
-              color={colors.accent}
-              emissive={colors.accent}
-              emissiveIntensity={1.2}
-            />
-          </mesh>
-        ))}
-
-      {traits.hasStripes &&
-        [-0.1, 0.15, 0.4].map((x) => (
-          <mesh key={x} position={[x, 0, 0.33]} rotation={[0, 0, Math.PI / 2]}>
-            <boxGeometry args={[0.08, 0.55, 0.02]} />
-            <meshStandardMaterial color={colors.secondary} />
-          </mesh>
-        ))}
+    <group ref={groupRef}>
+      <Float speed={1.1} rotationIntensity={0.06} floatIntensity={0.1}>
+        <DragonTexturedMesh texture={texture} dragon={dragon} />
+      </Float>
+      <ContactShadows
+        position={[0, -1.05, 0]}
+        opacity={0.6}
+        scale={5}
+        blur={2.5}
+        far={2.8}
+      />
     </group>
   );
 }
