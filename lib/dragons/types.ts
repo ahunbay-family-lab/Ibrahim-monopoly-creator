@@ -26,6 +26,7 @@ export type DragonCharacter = {
   tribe: string;
   name: string;
   description: string;
+  imageUrl: string;
   colors: DragonColors;
   traits: DragonTraits;
 };

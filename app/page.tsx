@@ -18,8 +18,8 @@ export default function Home() {
             Dragons 3D
           </h1>
           <p className="mx-auto max-w-2xl text-lg text-violet-100 sm:text-xl">
-            Explore ten incredible dragon tribes in 3D. Spin them around, study their
-            colors, and get ready to name your heroes!
+            Ten realistic dragon tribes brought to life in 3D. Spin them around,
+            study every scale and wing, and get ready to name your heroes!
           </p>
         </header>
 
