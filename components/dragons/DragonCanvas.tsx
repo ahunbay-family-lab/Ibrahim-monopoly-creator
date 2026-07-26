@@ -17,24 +17,21 @@ function Scene({ dragon }: { dragon: DragonCharacter }) {
 
   return (
     <>
-      <color attach="background" args={["#050508"]} />
-      <fog attach="fog" args={["#050508", 5, 14]} />
-
-      <ambientLight intensity={0.25} />
+      <ambientLight intensity={0.85} />
       <directionalLight
         position={[6, 10, 5]}
-        intensity={2.2}
+        intensity={2.5}
         castShadow
         shadow-mapSize={[2048, 2048]}
       />
-      <directionalLight position={[-5, 4, -3]} intensity={0.7} color="#ff6b6b" />
-      <pointLight position={[3, 2, 4]} intensity={glow ? 1.5 : 0.8} color={dragon.colors.accent} />
+      <directionalLight position={[-5, 4, -3]} intensity={1} color="#7df9ff" />
+      <pointLight position={[3, 2, 4]} intensity={glow ? 1.8 : 1.2} color="#39ff14" />
       <spotLight
         position={[0, 8, 2]}
         angle={0.45}
         penumbra={0.9}
-        intensity={1.2}
-        color="#ffe4c4"
+        intensity={1.5}
+        color="#e0ffff"
         castShadow
       />
 
@@ -47,7 +44,7 @@ function Scene({ dragon }: { dragon: DragonCharacter }) {
           size={2.5}
           speed={0.35}
           color={dragon.colors.accent}
-          opacity={0.7}
+          opacity={0.8}
         />
       )}
 
@@ -59,14 +56,14 @@ function Scene({ dragon }: { dragon: DragonCharacter }) {
         minPolarAngle={Math.PI / 6}
         maxPolarAngle={Math.PI / 1.5}
       />
-      <Environment preset="warehouse" />
+      <Environment preset="city" />
     </>
   );
 }
 
 export function DragonCanvas({ dragon, className }: DragonCanvasProps) {
   return (
-    <div className={className}>
+    <div className={`dragon-canvas-panel ${className ?? ""}`}>
       <Canvas
         shadows
         camera={{ position: [0, 1.2, 4.5], fov: 40 }}
