@@ -62,17 +62,85 @@ body {
   animation: pop 0.35s ease-out;
 }
 
-.spiky-title {
-  text-shadow:
-    0 0 10px rgba(220, 38, 38, 0.7),
-    1px 1px 0 #000,
-    -1px -1px 0 #000,
-    2px 0 0 #450a0a,
-    -2px 0 0 #450a0a,
-    0 2px 0 #450a0a,
-    0 -2px 0 #450a0a,
-    3px 2px 0 #1a0000,
-    -3px -2px 0 #1a0000;
-  filter: drop-shadow(0 0 14px rgba(239, 68, 68, 0.45));
-  letter-spacing: 0.08em;
+@keyframes lightning-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes lightning-flash {
+  0%,
+  88%,
+  100% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0.85;
+  }
+  92% {
+    opacity: 0.2;
+  }
+  94% {
+    opacity: 0.7;
+  }
+}
+
+.neon-lightning-bg {
+  background: linear-gradient(
+    135deg,
+    #00ffcc 0%,
+    #00b4d8 20%,
+    #39ff14 45%,
+    #00e5ff 70%,
+    #7df9ff 100%
+  );
+  background-size: 300% 300%;
+  animation: lightning-shift 8s ease-in-out infinite;
+}
+
+.lightning-bolt {
+  position: absolute;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, #e0ffff, #ffffff, #7df9ff, transparent);
+  opacity: 0;
+  filter: drop-shadow(0 0 12px #00ffcc) drop-shadow(0 0 24px #39ff14);
+  animation: lightning-flash 5s infinite;
+  pointer-events: none;
+}
+
+.lightning-bolt-1 {
+  top: 0;
+  left: 18%;
+  height: 55%;
+  transform: rotate(12deg);
+  animation-delay: 0s;
+}
+
+.lightning-bolt-2 {
+  top: 5%;
+  right: 22%;
+  height: 48%;
+  transform: rotate(-18deg);
+  animation-delay: 2.2s;
+}
+
+.lightning-bolt-3 {
+  top: 0;
+  left: 52%;
+  height: 40%;
+  transform: rotate(6deg);
+  animation-delay: 3.8s;
+}
+
+.dragon-canvas-panel {
+  background: linear-gradient(
+    180deg,
+    rgba(125, 249, 255, 0.45) 0%,
+    rgba(0, 255, 204, 0.35) 50%,
+    rgba(57, 255, 20, 0.3) 100%
+  );
 }
