@@ -1,3 +1,3 @@
-export const SITE_NAME = "Online Monopoly";
+export const SITE_NAME = "Dragons 3D";
 export const SITE_DESCRIPTION =
-  "Play Monopoly online with friends anywhere in the world — built in the Ahunbay Family Lab.";
+  "Explore ten dragon tribes in 3D — built in the Ahunbay Family Lab.";
