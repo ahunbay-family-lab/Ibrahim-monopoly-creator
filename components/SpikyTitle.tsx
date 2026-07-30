@@ -8,9 +8,9 @@ const metalMania = Metal_Mania({
 export function SpikyTitle() {
   return (
     <h1
-      className={`${metalMania.className} spiky-metal-title text-center text-5xl sm:text-7xl md:text-8xl`}
+      className={`${metalMania.className} spiky-metal-title text-center text-4xl sm:text-6xl md:text-8xl`}
     >
-      DRAGONS 3D
+      WINGS OF FIRE
     </h1>
   );
 }

@@ -1,6 +1,6 @@
-# Dragons 3D
+# Wings of Fire
 
-Explore **ten dragon tribes in 3D** — built in the [Ahunbay Family Lab](https://github.com/ahunbay-family-lab).
+Meet **ten dragon tribes in 3D** — built in the [Ahunbay Family Lab](https://github.com/ahunbay-family-lab).
 
 Spin each dragon around, study their colors and features, and get ready to name your heroes!
 
@@ -8,7 +8,7 @@ Spin each dragon around, study their colors and features, and get ready to name 
 
 ## What is this?
 
-A 3D dragon showcase app featuring ten unique dragon tribes:
+A 3D showcase of the Wings of Fire dragon tribes, featuring ten unique tribes:
 
 - **SkyWing** — fiery red with blazing wings
 - **MudWing** — thick brown armor and a powerful build
