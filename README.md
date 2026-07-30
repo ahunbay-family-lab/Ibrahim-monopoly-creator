@@ -9,18 +9,21 @@ touchscreen) to spin it around, scroll to zoom in, and tap a tribe button to swa
 
 ## What is this?
 
-A 3D showcase of the Wings of Fire dragon tribes, featuring ten unique tribes:
+A 3D showcase of the Wings of Fire dragon tribes. Each tribe is built out of simple 3D
+shapes (a body, neck, head, four legs, a tail, and wings) with its own body build,
+wing style, and special features — so every dragon actually looks different, not just
+a different color on the same model:
 
-- **SkyWing** — fiery red with blazing wings
-- **MudWing** — thick brown armor and a powerful build
-- **SeaWing** — deep blue with glowing markings
-- **RainWing** — rainbow scales that shimmer
+- **SkyWing** — lean and fiery red, with jagged bat-style wings
+- **MudWing** — bulky brown body built low to the ground
+- **SeaWing** — glowing blue markings on its wings
+- **RainWing** — rainbow-bright wings on a slim green body
 - **SandWing** — pale gold with a venomous tail barb
-- **NightWing** — midnight black with starry wings
-- **LeafWing** — leaf-shaped wings and jungle green
-- **IceWing** — shimmering ice with sharp spikes
-- **HiveWing** — yellow and black stripes
-- **SilkWing** — butterfly wings and antennae
+- **NightWing** — midnight-toned with glowing starry wings
+- **LeafWing** — slim body with a second pair of leaf-shaped wings
+- **IceWing** — icy blue with sharp spikes down its spine
+- **HiveWing** — yellow and black with narrow insect wings
+- **SilkWing** — purple with antennae and rounded butterfly wings
 
 Built with Next.js, TypeScript, React, Three.js, and Tailwind CSS.
 
@@ -61,7 +64,11 @@ Open [http://localhost:3000](http://localhost:3000), then click and drag the dra
 ├── app/
 │   └── page.tsx                    # Home page with the full-size dragon viewer
 ├── components/dragons/             # 3D dragon UI components
-├── lib/dragons/                    # Dragon character data and types
+├── lib/dragons/
+│   ├── characters.ts               # Each tribe's name, colors, and body traits
+│   ├── buildDragonBody.ts          # Builds a dragon's 3D body out of simple shapes
+│   ├── wingShape.ts                # The four wing outline styles
+│   └── geometryHelpers.ts          # Small 3D building blocks (segments, joints...)
 └── styles/globals.css              # Global styles
 ```
 
