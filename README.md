@@ -1,18 +1,17 @@
 # Wings of Fire
 
-Meet **ten dragon tribes in 3D** — built in the [Ahunbay Family Lab](https://github.com/ahunbay-family-lab).
+Meet **ten dragon tribes in full-body illustrated art** — built in the
+[Ahunbay Family Lab](https://github.com/ahunbay-family-lab).
 
-One full-size dragon fills the screen at a time. **Click and drag it** (or swipe on a
-touchscreen) to spin it around, scroll to zoom in, and tap a tribe button to swap dragons.
+One full-size dragon fills the screen at a time in a Wings-of-Fire-style illustration.
+Tap a tribe button to switch to another dragon.
 
 ---
 
 ## What is this?
 
-A 3D showcase of the Wings of Fire dragon tribes. Each tribe is built out of simple 3D
-shapes (a body, neck, head, four legs, a tail, and wings) with its own body build,
-wing style, and special features — so every dragon actually looks different, not just
-a different color on the same model:
+A full-body dragon showcase for the Wings of Fire tribes, with one illustrated dragon
+displayed at a time:
 
 - **SkyWing** — lean and fiery red, with jagged bat-style wings
 - **MudWing** — bulky brown body built low to the ground
@@ -25,7 +24,7 @@ a different color on the same model:
 - **HiveWing** — yellow and black with narrow insect wings
 - **SilkWing** — purple with antennae and rounded butterfly wings
 
-Built with Next.js, TypeScript, React, Three.js, and Tailwind CSS.
+Built with Next.js, TypeScript, React, and Tailwind CSS.
 
 ---
 
@@ -45,7 +44,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000), then click and drag the dragon to spin it!
+Open [http://localhost:3000](http://localhost:3000), then use the tribe buttons to switch dragons.
 
 ### Useful commands
 
@@ -63,12 +62,10 @@ Open [http://localhost:3000](http://localhost:3000), then click and drag the dra
 /
 ├── app/
 │   └── page.tsx                    # Home page with the full-size dragon viewer
-├── components/dragons/             # 3D dragon UI components
+├── components/dragons/             # Dragon viewer UI components
 ├── lib/dragons/
-│   ├── characters.ts               # Each tribe's name, colors, and body traits
-│   ├── buildDragonBody.ts          # Builds a dragon's 3D body out of simple shapes
-│   ├── wingShape.ts                # The four wing outline styles
-│   └── geometryHelpers.ts          # Small 3D building blocks (segments, joints...)
+│   └── characters.ts               # Each tribe's name, art image, and traits
+├── public/dragons/                 # Full-body tribe dragon illustrations
 └── styles/globals.css              # Global styles
 ```
 
