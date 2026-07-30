@@ -2,7 +2,8 @@
 
 Meet **ten dragon tribes in 3D** — built in the [Ahunbay Family Lab](https://github.com/ahunbay-family-lab).
 
-Spin each dragon around, study their colors and features, and get ready to name your heroes!
+One full-size dragon fills the screen at a time. **Click and drag it** (or swipe on a
+touchscreen) to spin it around, scroll to zoom in, and tap a tribe button to swap dragons.
 
 ---
 
@@ -41,7 +42,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see the dragons!
+Open [http://localhost:3000](http://localhost:3000), then click and drag the dragon to spin it!
 
 ### Useful commands
 
@@ -58,7 +59,7 @@ Open [http://localhost:3000](http://localhost:3000) to see the dragons!
 ```
 /
 ├── app/
-│   └── page.tsx                    # Home page with dragon roster
+│   └── page.tsx                    # Home page with the full-size dragon viewer
 ├── components/dragons/             # 3D dragon UI components
 ├── lib/dragons/                    # Dragon character data and types
 └── styles/globals.css              # Global styles

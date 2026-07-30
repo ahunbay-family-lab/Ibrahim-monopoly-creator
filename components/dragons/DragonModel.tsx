@@ -1,16 +1,21 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { forwardRef, useImperativeHandle, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import type { Group, MeshStandardMaterial } from "three";
 import * as THREE from "three";
 import type { DragonCharacter } from "@/lib/dragons/types";
+import type { DragonSpinHandle } from "@/lib/dragons/drag";
 import { DRAGON_MODEL_PATH } from "@/lib/dragons/model";
+
+/** Radians per second the dragon spins on its own when nobody is dragging it. */
+const AUTO_ROTATE_SPEED = 0.5;
+/** Radians the dragon turns for every pixel the pointer drags horizontally. */
+const DRAG_SENSITIVITY = 0.01;
 
 type DragonModelProps = {
   dragon: DragonCharacter;
-  autoRotate?: boolean;
 };
 
 function applyTribeColors(scene: THREE.Object3D, dragon: DragonCharacter) {
@@ -76,28 +81,50 @@ function normalizeModel(scene: THREE.Object3D) {
   }
 }
 
-export function DragonModel({ dragon, autoRotate = true }: DragonModelProps) {
-  const groupRef = useRef<Group>(null);
-  const { scene } = useGLTF(DRAGON_MODEL_PATH);
+/** Renders the tribe-colored dragon and exposes drag controls so a parent can spin it. */
+export const DragonModel = forwardRef<DragonSpinHandle, DragonModelProps>(
+  function DragonModel({ dragon }, spinHandleRef) {
+    const groupRef = useRef<Group>(null);
+    const isDraggingRef = useRef(false);
+    const { scene } = useGLTF(DRAGON_MODEL_PATH);
 
-  const model = useMemo(() => {
-    const clone = scene.clone(true);
-    applyTribeColors(clone, dragon);
-    normalizeModel(clone);
-    return clone;
-  }, [scene, dragon]);
+    const model = useMemo(() => {
+      const clone = scene.clone(true);
+      applyTribeColors(clone, dragon);
+      normalizeModel(clone);
+      return clone;
+    }, [scene, dragon]);
 
-  useFrame((_, delta) => {
-    if (autoRotate && groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.5;
-    }
-  });
+    useImperativeHandle(
+      spinHandleRef,
+      () => ({
+        beginDrag() {
+          isDraggingRef.current = true;
+        },
+        applyDrag(deltaX: number) {
+          if (groupRef.current) {
+            groupRef.current.rotation.y += deltaX * DRAG_SENSITIVITY;
+          }
+        },
+        endDrag() {
+          isDraggingRef.current = false;
+        },
+      }),
+      [],
+    );
 
-  return (
-    <group ref={groupRef} rotation={[0, Math.PI / 5, 0]}>
-      <primitive object={model} />
-    </group>
-  );
-}
+    useFrame((_, delta) => {
+      if (groupRef.current && !isDraggingRef.current) {
+        groupRef.current.rotation.y += delta * AUTO_ROTATE_SPEED;
+      }
+    });
+
+    return (
+      <group ref={groupRef} rotation={[0, Math.PI / 5, 0]}>
+        <primitive object={model} />
+      </group>
+    );
+  },
+);
 
 useGLTF.preload(DRAGON_MODEL_PATH);

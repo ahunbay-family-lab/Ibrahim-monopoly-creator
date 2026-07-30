@@ -136,15 +136,6 @@ body {
   animation-delay: 3.8s;
 }
 
-.dragon-canvas-panel {
-  background: linear-gradient(
-    180deg,
-    rgba(125, 249, 255, 0.55) 0%,
-    rgba(0, 255, 204, 0.45) 50%,
-    rgba(57, 255, 20, 0.4) 100%
-  );
-}
-
 .spiky-metal-title {
   color: #0a0a0a;
   letter-spacing: 0.14em;
