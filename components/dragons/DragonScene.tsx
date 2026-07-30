@@ -17,11 +17,17 @@ export const DragonScene = forwardRef<DragonSpinHandle, DragonSceneProps>(
 
     return (
       <>
-        <ambientLight intensity={1.4} />
-        <hemisphereLight intensity={0.8} groundColor="#004d40" color="#ffffff" />
-        <directionalLight position={[5, 8, 6]} intensity={2.5} />
-        <directionalLight position={[-4, 3, -2]} intensity={1} color="#7df9ff" />
-        <pointLight position={[2, 2, 4]} intensity={glow ? 1.8 : 1.2} color="#39ff14" />
+        {/*
+          Lower ambient/hemisphere light plus a brighter key light gives the dragon's
+          scales real shadows and highlights instead of looking flat. The fill lights
+          use warm, neutral tones (not the background's teal/green) so the dragon's own
+          colors don't get tinted to match the background and disappear into it.
+        */}
+        <ambientLight intensity={0.7} />
+        <hemisphereLight intensity={0.6} groundColor="#0f172a" color="#ffffff" />
+        <directionalLight position={[5, 8, 6]} intensity={3.2} />
+        <directionalLight position={[-4, 3, -2]} intensity={0.8} color="#ffd9a0" />
+        <pointLight position={[2, 2, 4]} intensity={glow ? 1.6 : 1} color="#fff4e0" />
 
         <DragonModel ref={spinHandleRef} dragon={dragon} />
 

@@ -57,9 +57,9 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     colors: {
       primary: "#1e4d7b",
       secondary: "#2e6b9e",
-      accent: "#00e5ff",
+      accent: "#0ea5e9",
       wing: "#2563a8",
-      wingInner: "#4fc3f7",
+      wingInner: "#38bdf8",
     },
     traits: {
       wingCount: 2,
@@ -79,11 +79,11 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     tribe: "RainWing",
     name: "???",
     colors: {
-      primary: "#2ecc71",
-      secondary: "#e74c3c",
-      accent: "#9b59b6",
-      wing: "#3498db",
-      wingInner: "#f39c12",
+      primary: "#16a34a",
+      secondary: "#dc2626",
+      accent: "#7c3aed",
+      wing: "#2563eb",
+      wingInner: "#ea580c",
     },
     traits: {
       wingCount: 2,
@@ -151,11 +151,11 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     tribe: "LeafWing",
     name: "???",
     colors: {
-      primary: "#4caf50",
-      secondary: "#81c784",
-      accent: "#a5d6a7",
-      wing: "#66bb6a",
-      wingInner: "#c8e6c9",
+      primary: "#1b5e20",
+      secondary: "#2e7d32",
+      accent: "#4caf50",
+      wing: "#166534",
+      wingInner: "#4caf50",
     },
     traits: {
       wingCount: 4,
@@ -175,11 +175,11 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     tribe: "IceWing",
     name: "???",
     colors: {
-      primary: "#e8f4f8",
-      secondary: "#b3d9e8",
-      accent: "#87ceeb",
-      wing: "#d0e8f0",
-      wingInner: "#ffffff",
+      primary: "#5fb8d9",
+      secondary: "#2f7ea3",
+      accent: "#bfe9f7",
+      wing: "#3d8fb0",
+      wingInner: "#eaf7fb",
     },
     traits: {
       wingCount: 2,
