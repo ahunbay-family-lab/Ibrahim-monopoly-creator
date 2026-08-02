@@ -137,7 +137,7 @@ body {
 }
 
 .spiky-metal-title {
-  color: #0a0a0a;
+  color: #f7b733;
   letter-spacing: 0.14em;
   line-height: 1;
   -webkit-text-stroke: 1.5px #000000;
@@ -145,6 +145,6 @@ body {
   text-shadow:
     3px 3px 0 #000000,
     -2px -2px 0 #1a1a1a,
-    0 0 18px rgba(0, 0, 0, 0.35);
+    0 0 22px rgba(247, 183, 51, 0.45);
   filter: drop-shadow(0 4px 2px rgba(0, 0, 0, 0.45));
 }

@@ -20,8 +20,7 @@ export const DragonScene = forwardRef<DragonSpinHandle, DragonSceneProps>(
         {/*
           Lower ambient/hemisphere light plus a brighter key light gives the dragon's
           scales real shadows and highlights instead of looking flat. The fill lights
-          use warm, neutral tones (not the background's teal/green) so the dragon's own
-          colors don't get tinted to match the background and disappear into it.
+          use warm, neutral tones so the dragon's own colors stay true to the tribe.
         */}
         <ambientLight intensity={0.7} />
         <hemisphereLight intensity={0.6} groundColor="#0f172a" color="#ffffff" />
@@ -42,8 +41,8 @@ export const DragonScene = forwardRef<DragonSpinHandle, DragonSceneProps>(
           />
         )}
 
-        {/* Rotation is handled by dragging the dragon directly (see DragonModel),
-            so orbit controls here are just for zooming in and out. */}
+        {/* Rotation is handled by dragging/keyboard directly on the dragon (see
+            DragonModel), so orbit controls here are just for zooming in and out. */}
         <OrbitControls
           enableRotate={false}
           enableZoom={true}
