@@ -1,11 +1,11 @@
 import type { DragonCharacter } from "@/lib/dragons/types";
 
-/** Main dragon characters — names are placeholders until you choose them. */
+/** Main dragon characters — IceWing, HiveWing, and SilkWing names are still placeholders. */
 export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "skywing",
     tribe: "SkyWing",
-    name: "???",
+    name: "Peril",
     colors: {
       primary: "#c41e3a",
       secondary: "#ff6b35",
@@ -29,7 +29,7 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "mudwing",
     tribe: "MudWing",
-    name: "???",
+    name: "Clay",
     colors: {
       primary: "#8b5a2b",
       secondary: "#a0522d",
@@ -53,7 +53,7 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "seawing",
     tribe: "SeaWing",
-    name: "???",
+    name: "Tsunami",
     colors: {
       primary: "#1e4d7b",
       secondary: "#2e6b9e",
@@ -77,7 +77,7 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "rainwing",
     tribe: "RainWing",
-    name: "???",
+    name: "Glory",
     colors: {
       primary: "#2ecc71",
       secondary: "#e74c3c",
@@ -101,7 +101,7 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "sandwing",
     tribe: "SandWing",
-    name: "???",
+    name: "Qibli",
     colors: {
       primary: "#e8c872",
       secondary: "#d4a843",
@@ -125,7 +125,7 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "nightwing",
     tribe: "NightWing",
-    name: "???",
+    name: "Deathbringer",
     colors: {
       primary: "#1a1a2e",
       secondary: "#2d2d44",
@@ -149,7 +149,7 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "leafwing",
     tribe: "LeafWing",
-    name: "???",
+    name: "Sequoia",
     colors: {
       primary: "#4caf50",
       secondary: "#81c784",
