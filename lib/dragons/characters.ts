@@ -6,8 +6,6 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     id: "skywing",
     tribe: "SkyWing",
     name: "???",
-    description: "Fiery red scales with blazing orange and yellow wings.",
-    imageUrl: "/dragons/skywing.png",
     colors: {
       primary: "#c41e3a",
       secondary: "#ff6b35",
@@ -32,8 +30,6 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     id: "mudwing",
     tribe: "MudWing",
     name: "???",
-    description: "Thick brown armor and a powerful, crocodile-like build.",
-    imageUrl: "/dragons/mudwing.png",
     colors: {
       primary: "#8b5a2b",
       secondary: "#a0522d",
@@ -58,8 +54,6 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     id: "seawing",
     tribe: "SeaWing",
     name: "???",
-    description: "Deep blue scales with glowing bioluminescent markings.",
-    imageUrl: "/dragons/seawing.png",
     colors: {
       primary: "#1e4d7b",
       secondary: "#2e6b9e",
@@ -84,8 +78,6 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     id: "rainwing",
     tribe: "RainWing",
     name: "???",
-    description: "Rainbow scales that shimmer with every color of the jungle.",
-    imageUrl: "/dragons/rainwing.png",
     colors: {
       primary: "#2ecc71",
       secondary: "#e74c3c",
@@ -110,8 +102,6 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     id: "sandwing",
     tribe: "SandWing",
     name: "???",
-    description: "Pale gold scales, a spine sail, and a venomous tail barb.",
-    imageUrl: "/dragons/sandwing.png",
     colors: {
       primary: "#e8c872",
       secondary: "#d4a843",
@@ -136,8 +126,6 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     id: "nightwing",
     tribe: "NightWing",
     name: "???",
-    description: "Midnight black scales with star-speckled wing undersides.",
-    imageUrl: "/dragons/nightwing.png",
     colors: {
       primary: "#1a1a2e",
       secondary: "#2d2d44",
@@ -162,8 +150,6 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     id: "leafwing",
     tribe: "LeafWing",
     name: "???",
-    description: "Leaf-shaped wings and a graceful, jungle-green body.",
-    imageUrl: "/dragons/leafwing.png",
     colors: {
       primary: "#4caf50",
       secondary: "#81c784",
@@ -188,8 +174,6 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     id: "icewing",
     tribe: "IceWing",
     name: "???",
-    description: "Shimmering white and ice-blue scales with sharp spikes.",
-    imageUrl: "/dragons/icewing.png",
     colors: {
       primary: "#e8f4f8",
       secondary: "#b3d9e8",
@@ -214,8 +198,6 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     id: "hivewing",
     tribe: "HiveWing",
     name: "???",
-    description: "Yellow and black stripes with four thin, insect-like wings.",
-    imageUrl: "/dragons/hivewing.png",
     colors: {
       primary: "#f4d03f",
       secondary: "#1a1a1a",
@@ -240,8 +222,6 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     id: "silkwing",
     tribe: "SilkWing",
     name: "???",
-    description: "Vibrant blue and purple scales with butterfly wings.",
-    imageUrl: "/dragons/silkwing.png",
     colors: {
       primary: "#5b4fc7",
       secondary: "#7b68ee",
