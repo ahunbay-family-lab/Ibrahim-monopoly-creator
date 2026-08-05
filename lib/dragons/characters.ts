@@ -1,6 +1,6 @@
 import type { DragonCharacter } from "@/lib/dragons/types";
 
-/** Main dragon characters — IceWing, HiveWing, and SilkWing names are still placeholders. */
+/** Main dragon characters, one per tribe. */
 export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "skywing",
@@ -173,7 +173,7 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "icewing",
     tribe: "IceWing",
-    name: "???",
+    name: "Winter",
     colors: {
       primary: "#e8f4f8",
       secondary: "#b3d9e8",
@@ -197,7 +197,7 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "hivewing",
     tribe: "HiveWing",
-    name: "???",
+    name: "Queen Wasp",
     colors: {
       primary: "#f4d03f",
       secondary: "#1a1a1a",
@@ -221,7 +221,7 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "silkwing",
     tribe: "SilkWing",
-    name: "???",
+    name: "Blue",
     colors: {
       primary: "#5b4fc7",
       secondary: "#7b68ee",
