@@ -9,6 +9,7 @@ import { SkeletonUtils } from "three-stdlib";
 import type { DragonCharacter } from "@/lib/dragons/types";
 import type { DragonSpinHandle } from "@/lib/dragons/drag";
 import { DRAGON_MODEL_PATH } from "@/lib/dragons/model";
+import { DRAGON_CHARACTERS } from "@/lib/dragons/characters";
 
 /** Radians per second the dragon spins on its own when nobody is turning it. */
 const AUTO_ROTATE_SPEED = 0.5;
@@ -100,10 +101,25 @@ function addOutline(scene: THREE.Object3D) {
   });
 
   for (const mesh of meshes) {
-    const outline = new THREE.Mesh(
-      mesh.geometry,
-      new THREE.MeshBasicMaterial({ color: OUTLINE_COLOR, side: THREE.BackSide }),
-    );
+    const outlineMaterial = new THREE.MeshBasicMaterial({
+      color: OUTLINE_COLOR,
+      side: THREE.BackSide,
+    });
+
+    // A dragon with a flying animation (like Peril) needs its outline bound to the
+    // same skeleton, so the outline moves and flaps in sync with the real mesh
+    // instead of staying frozen in the rest pose.
+    const outline =
+      mesh instanceof THREE.SkinnedMesh
+        ? Object.assign(new THREE.SkinnedMesh(mesh.geometry, outlineMaterial), {
+            bindMode: mesh.bindMode,
+          })
+        : new THREE.Mesh(mesh.geometry, outlineMaterial);
+
+    if (outline instanceof THREE.SkinnedMesh && mesh instanceof THREE.SkinnedMesh) {
+      outline.bind(mesh.skeleton, mesh.bindMatrix);
+    }
+
     outline.position.copy(mesh.position);
     outline.rotation.copy(mesh.rotation);
     outline.scale.copy(mesh.scale).multiplyScalar(OUTLINE_SCALE);
@@ -131,7 +147,9 @@ export const DragonModel = forwardRef<DragonSpinHandle, DragonModelProps>(
   function DragonModel({ dragon }, spinHandleRef) {
     const groupRef = useRef<Group>(null);
     const isDraggingRef = useRef(false);
-    const { scene } = useGLTF(DRAGON_MODEL_PATH);
+    const mixerRef = useRef<THREE.AnimationMixer | null>(null);
+    const modelPath = dragon.modelPath ?? DRAGON_MODEL_PATH;
+    const { scene, animations } = useGLTF(modelPath);
 
     const model = useMemo(() => {
       // Plain Object3D.clone() doesn't reconnect a rigged model's bones to its
@@ -141,8 +159,21 @@ export const DragonModel = forwardRef<DragonSpinHandle, DragonModelProps>(
       applyTribeColors(clone, dragon);
       normalizeModel(clone);
       addOutline(clone);
+
+      const clip = dragon.animationName
+        ? THREE.AnimationClip.findByName(animations, dragon.animationName)
+        : null;
+
+      if (clip) {
+        const mixer = new THREE.AnimationMixer(clone);
+        mixer.clipAction(clip).play();
+        mixerRef.current = mixer;
+      } else {
+        mixerRef.current = null;
+      }
+
       return clone;
-    }, [scene, dragon]);
+    }, [scene, animations, dragon]);
 
     useImperativeHandle(
       spinHandleRef,
@@ -174,6 +205,8 @@ export const DragonModel = forwardRef<DragonSpinHandle, DragonModelProps>(
     );
 
     useFrame((_, delta) => {
+      mixerRef.current?.update(delta);
+
       if (groupRef.current && !isDraggingRef.current) {
         groupRef.current.rotation.y += delta * AUTO_ROTATE_SPEED;
       }
@@ -188,3 +221,6 @@ export const DragonModel = forwardRef<DragonSpinHandle, DragonModelProps>(
 );
 
 useGLTF.preload(DRAGON_MODEL_PATH);
+DRAGON_CHARACTERS.filter((dragon) => dragon.modelPath).forEach((dragon) =>
+  useGLTF.preload(dragon.modelPath as string),
+);
