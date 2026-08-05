@@ -18,6 +18,19 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+.dragon-collage-bg {
+  background-image:
+    radial-gradient(
+      circle at center,
+      rgba(12, 14, 36, 0.78) 0%,
+      rgba(12, 14, 36, 0.48) 42%,
+      rgba(12, 14, 36, 0.76) 100%
+    ),
+    url("/dragon-collage-background.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
 @keyframes float {
   0%,
   100% {
