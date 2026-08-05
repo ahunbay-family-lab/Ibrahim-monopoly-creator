@@ -25,8 +25,8 @@ export function DragonViewer() {
     DRAGON_CHARACTERS[0];
 
   return (
-    <div className="flex w-full flex-col items-center gap-6">
-      <div className="relative h-[55vh] w-full max-w-3xl sm:h-[65vh]">
+    <div className="flex w-full flex-col items-center gap-4 sm:gap-5">
+      <div className="relative h-[46dvh] max-h-[34rem] w-full max-w-3xl sm:h-[55dvh] lg:h-[58dvh]">
         <DragonCanvas dragon={dragon} className="h-full w-full" />
 
         <div className="pointer-events-none absolute inset-x-0 top-2 text-center">
