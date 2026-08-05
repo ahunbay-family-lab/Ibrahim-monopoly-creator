@@ -31,4 +31,11 @@ export type DragonCharacter = {
   modelPath?: string;
   /** Name of an animation clip in that model to play on a loop (e.g. a flying pose). */
   animationName?: string;
+  /** Extra visual details like smoke, eyes, or talons — used for dragons with unique models. */
+  visualEffects?: {
+    outline?: boolean;
+    nostrilSmoke?: boolean;
+    eyes?: boolean;
+    talons?: boolean;
+  };
 };

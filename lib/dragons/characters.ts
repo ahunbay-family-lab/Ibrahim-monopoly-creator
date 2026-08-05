@@ -10,6 +10,12 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     // the shared bust everyone else uses — matching a real dragon in flight.
     modelPath: "/models/peril-flying.glb",
     animationName: "Flying-loop",
+    visualEffects: {
+      outline: false,
+      nostrilSmoke: true,
+      eyes: true,
+      talons: true,
+    },
     colors: {
       primary: "#c41e3a",
       secondary: "#ff6b35",
