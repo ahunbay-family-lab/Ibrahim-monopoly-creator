@@ -27,4 +27,8 @@ export type DragonCharacter = {
   name: string;
   colors: DragonColors;
   traits: DragonTraits;
+  /** Overrides the shared bust model with a different 3D model, for a dragon with a unique shape. */
+  modelPath?: string;
+  /** Name of an animation clip in that model to play on a loop (e.g. a flying pose). */
+  animationName?: string;
 };

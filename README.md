@@ -4,7 +4,8 @@ Meet **ten dragon tribes in 3D** — built in the [Ahunbay Family Lab](https://g
 
 One full-size 3D dragon fills the screen at a time. It spins gently on its own, and you can
 turn it to see any angle: **drag with your mouse or trackpad, swipe on a touchscreen, or
-use the arrow keys.** Tap a tribe button to switch to another dragon.
+use the arrow keys.** Tap a tribe button to switch to another dragon. Peril, the SkyWing,
+has her own full-body model and flies with her wings spread instead of standing still.
 
 ---
 
@@ -67,12 +68,20 @@ arrow keys) to spin it around!
 │   ├── characters.ts               # Each tribe's name, colors, and traits
 │   ├── model.ts                    # Path to the shared 3D dragon model
 │   └── drag.ts                     # Turn-the-dragon control types
-├── public/models/dragon.glb        # The shared 3D dragon model
+├── public/models/dragon.glb        # The shared 3D dragon model (bust)
+├── public/models/peril-flying.glb  # Peril's own full-body, flying model
 └── styles/globals.css              # Global styles
 ```
 
 ---
 
+## Credits
+
+Peril's flying model (`public/models/peril-flying.glb`) is the "Simple 3D Dragon Model" by
+MattBas ([opengameart.org](https://opengameart.org/content/simple-3d-dragon-model)), used
+under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+
 ## License
 
-MIT — see [LICENSE](LICENSE) for details.
+MIT — see [LICENSE](LICENSE) for details. The 3D model credited above keeps its own
+CC BY-SA 4.0 license.

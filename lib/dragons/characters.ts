@@ -6,6 +6,10 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
     id: "skywing",
     tribe: "SkyWing",
     name: "Peril",
+    // Peril gets her own full-body model, flying with wings spread, instead of
+    // the shared bust everyone else uses — matching a real dragon in flight.
+    modelPath: "/models/peril-flying.glb",
+    animationName: "Flying-loop",
     colors: {
       primary: "#c41e3a",
       secondary: "#ff6b35",
