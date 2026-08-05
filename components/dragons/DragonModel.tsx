@@ -10,7 +10,11 @@ import type { DragonCharacter } from "@/lib/dragons/types";
 import type { DragonSpinHandle } from "@/lib/dragons/drag";
 import { DRAGON_MODEL_PATH } from "@/lib/dragons/model";
 import { DRAGON_CHARACTERS } from "@/lib/dragons/characters";
+import { attachStaticVisualAddons, createSmokeAnchors } from "@/lib/dragons/visualAddons";
 import { DragonVisualAddons } from "@/components/dragons/DragonVisualAddons";
+
+/** Default size the model is scaled to so it fits the viewer. */
+const DEFAULT_FIT_SCALE = 2.8;
 
 /** Radians per second the dragon spins on its own when nobody is turning it. */
 const AUTO_ROTATE_SPEED = 0.5;
@@ -130,14 +134,14 @@ function addOutline(scene: THREE.Object3D) {
   }
 }
 
-function normalizeModel(scene: THREE.Object3D) {
+function normalizeModel(scene: THREE.Object3D, fitScale = DEFAULT_FIT_SCALE) {
   const box = new THREE.Box3().setFromObject(scene);
   const size = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
   const maxDim = Math.max(size.x, size.y, size.z);
 
   if (maxDim > 0) {
-    const scale = 2.8 / maxDim;
+    const scale = fitScale / maxDim;
     scene.scale.setScalar(scale);
     scene.position.set(-center.x * scale, -center.y * scale, -center.z * scale);
   }
@@ -155,12 +159,14 @@ export const DragonModel = forwardRef<DragonSpinHandle, DragonModelProps>(
     const model = useMemo(() => {
       const clone = SkeletonUtils.clone(scene);
       applyTribeColors(clone, dragon);
-      normalizeModel(clone);
+      normalizeModel(clone, dragon.visualEffects?.fitScale ?? DEFAULT_FIT_SCALE);
 
       const showOutline = dragon.visualEffects?.outline !== false;
       if (showOutline) {
         addOutline(clone);
       }
+
+      attachStaticVisualAddons(clone, dragon);
 
       const clip = dragon.animationName
         ? THREE.AnimationClip.findByName(animations, dragon.animationName)
@@ -176,6 +182,13 @@ export const DragonModel = forwardRef<DragonSpinHandle, DragonModelProps>(
 
       return clone;
     }, [scene, animations, dragon]);
+
+    const smokeAnchors = useMemo(() => {
+      if (!dragon.visualEffects?.nostrilSmoke) {
+        return null;
+      }
+      return createSmokeAnchors(model);
+    }, [model, dragon.visualEffects?.nostrilSmoke]);
 
     useImperativeHandle(
       spinHandleRef,
@@ -217,7 +230,7 @@ export const DragonModel = forwardRef<DragonSpinHandle, DragonModelProps>(
     return (
       <group ref={groupRef} rotation={[0, Math.PI / 5, 0]}>
         <primitive object={model} />
-        <DragonVisualAddons model={model} dragon={dragon} />
+        <DragonVisualAddons smokeAnchors={smokeAnchors} />
       </group>
     );
   },

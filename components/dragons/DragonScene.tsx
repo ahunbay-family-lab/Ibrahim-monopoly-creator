@@ -8,10 +8,11 @@ import { DragonModel } from "@/components/dragons/DragonModel";
 
 type DragonSceneProps = {
   dragon: DragonCharacter;
+  cameraDistance?: number;
 };
 
 export const DragonScene = forwardRef<DragonSpinHandle, DragonSceneProps>(
-  function DragonScene({ dragon }, spinHandleRef) {
+  function DragonScene({ dragon, cameraDistance = 3.5 }, spinHandleRef) {
     const glow =
       dragon.traits.hasBioluminescence || dragon.traits.hasStarryWings;
 
@@ -47,8 +48,8 @@ export const DragonScene = forwardRef<DragonSpinHandle, DragonSceneProps>(
           enableRotate={false}
           enableZoom={true}
           enablePan={false}
-          minDistance={1.2}
-          maxDistance={7}
+          minDistance={cameraDistance * 0.55}
+          maxDistance={cameraDistance * 1.6}
         />
       </>
     );

@@ -37,5 +37,9 @@ export type DragonCharacter = {
     nostrilSmoke?: boolean;
     eyes?: boolean;
     talons?: boolean;
+    /** How big the model is scaled to fit the viewer (default 2.8). Smaller = more room for wide wings. */
+    fitScale?: number;
+    /** How far the camera sits from the dragon (default 3.5). */
+    cameraDistance?: number;
   };
 };
