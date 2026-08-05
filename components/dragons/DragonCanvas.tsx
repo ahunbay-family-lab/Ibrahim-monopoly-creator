@@ -18,6 +18,8 @@ export function DragonCanvas({ dragon, className }: DragonCanvasProps) {
   const spinRef = useRef<DragonSpinHandle>(null);
   const isPointerDownRef = useRef(false);
   const lastPointerRef = useRef({ x: 0, y: 0 });
+  const cameraDistance = dragon.visualEffects?.cameraDistance ?? 3.5;
+  const cameraHeight = dragon.modelPath ? 0.45 : 0.8;
 
   function handlePointerDown(event: PointerEvent<HTMLDivElement>) {
     isPointerDownRef.current = true;
@@ -77,13 +79,13 @@ export function DragonCanvas({ dragon, className }: DragonCanvasProps) {
     >
       <Canvas
         shadows
-        camera={{ position: [0, 0.8, 3.5], fov: 45 }}
+        camera={{ position: [0, cameraHeight, cameraDistance], fov: 42 }}
         gl={{ antialias: true, alpha: true }}
         dpr={[1, 1.5]}
         style={{ width: "100%", height: "100%" }}
       >
         <Suspense fallback={null}>
-          <DragonScene ref={spinRef} dragon={dragon} />
+          <DragonScene ref={spinRef} dragon={dragon} cameraDistance={cameraDistance} />
         </Suspense>
       </Canvas>
     </div>

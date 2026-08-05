@@ -15,6 +15,8 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
       nostrilSmoke: true,
       eyes: true,
       talons: true,
+      fitScale: 2.05,
+      cameraDistance: 4.4,
     },
     colors: {
       primary: "#c41e3a",
