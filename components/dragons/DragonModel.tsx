@@ -10,6 +10,7 @@ import type { DragonCharacter } from "@/lib/dragons/types";
 import type { DragonSpinHandle } from "@/lib/dragons/drag";
 import { DRAGON_MODEL_PATH } from "@/lib/dragons/model";
 import { DRAGON_CHARACTERS } from "@/lib/dragons/characters";
+import { DragonVisualAddons } from "@/components/dragons/DragonVisualAddons";
 
 /** Radians per second the dragon spins on its own when nobody is turning it. */
 const AUTO_ROTATE_SPEED = 0.5;
@@ -152,13 +153,14 @@ export const DragonModel = forwardRef<DragonSpinHandle, DragonModelProps>(
     const { scene, animations } = useGLTF(modelPath);
 
     const model = useMemo(() => {
-      // Plain Object3D.clone() doesn't reconnect a rigged model's bones to its
-      // skeleton, which made the dragon invisible. SkeletonUtils.clone() clones
-      // the skeleton correctly too, so the model actually renders.
       const clone = SkeletonUtils.clone(scene);
       applyTribeColors(clone, dragon);
       normalizeModel(clone);
-      addOutline(clone);
+
+      const showOutline = dragon.visualEffects?.outline !== false;
+      if (showOutline) {
+        addOutline(clone);
+      }
 
       const clip = dragon.animationName
         ? THREE.AnimationClip.findByName(animations, dragon.animationName)
@@ -215,6 +217,7 @@ export const DragonModel = forwardRef<DragonSpinHandle, DragonModelProps>(
     return (
       <group ref={groupRef} rotation={[0, Math.PI / 5, 0]}>
         <primitive object={model} />
+        <DragonVisualAddons model={model} dragon={dragon} />
       </group>
     );
   },

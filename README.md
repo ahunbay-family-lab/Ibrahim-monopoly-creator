@@ -5,7 +5,8 @@ Meet **ten dragon tribes in 3D** — built in the [Ahunbay Family Lab](https://g
 One full-size 3D dragon fills the screen at a time. It spins gently on its own, and you can
 turn it to see any angle: **drag with your mouse or trackpad, swipe on a touchscreen, or
 use the arrow keys.** Tap a tribe button to switch to another dragon. Peril, the SkyWing,
-has her own full-body model and flies with her wings spread instead of standing still.
+has her own full-body model that flies with wings spread, glowing eyes, sharp talons, and
+white smoke curling from her nostrils — just like in the books.
 
 ---
 
