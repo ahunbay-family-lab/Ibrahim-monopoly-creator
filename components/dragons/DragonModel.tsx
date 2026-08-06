@@ -11,7 +11,7 @@ import type { DragonSpinHandle } from "@/lib/dragons/drag";
 import { DRAGON_MODEL_PATH } from "@/lib/dragons/model";
 import { DRAGON_CHARACTERS } from "@/lib/dragons/characters";
 import { attachStaticVisualAddons, createSmokeAnchors } from "@/lib/dragons/visualAddons";
-import { applyPerilBodyColors } from "@/lib/dragons/perilColors";
+import { applyReferenceBodyColors } from "@/lib/dragons/referenceBodyColors";
 import { DragonVisualAddons } from "@/components/dragons/DragonVisualAddons";
 
 /** Default size the model is scaled to so it fits the viewer. */
@@ -161,7 +161,7 @@ export const DragonModel = forwardRef<DragonSpinHandle, DragonModelProps>(
       const clone = SkeletonUtils.clone(scene);
 
       if (dragon.visualEffects?.bodyColoring) {
-        applyPerilBodyColors(clone, dragon);
+        applyReferenceBodyColors(clone, dragon);
       } else {
         applyTribeColors(clone, dragon);
       }

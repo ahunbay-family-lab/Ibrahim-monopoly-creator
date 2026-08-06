@@ -2,22 +2,17 @@ import * as THREE from "three";
 import type { DragonCharacter } from "@/lib/dragons/types";
 import { findBone } from "@/lib/dragons/visualEffects";
 
-const FIERCE_EYE_COLOR = new THREE.Color("#ffd700");
-const FIERCE_EYE_GLOW = new THREE.Color("#ffcc00");
-
 function attachFierceEyes(head: THREE.Object3D) {
   for (const side of [-1, 1] as const) {
     const eyeGroup = new THREE.Group();
-    // Jaw sits at (0, 0.03, 0.21) on the head bone — eyes go on the cheek,
-    // above the jaw and out to the side, not beneath the skull.
     eyeGroup.position.set(side * 0.16, 0.11, 0.1);
     eyeGroup.rotation.y = side * 0.42;
 
     const eye = new THREE.Mesh(
       new THREE.SphereGeometry(0.1, 14, 14),
       new THREE.MeshStandardMaterial({
-        color: FIERCE_EYE_COLOR,
-        emissive: FIERCE_EYE_GLOW,
+        color: "#ffd700",
+        emissive: "#ffcc00",
         emissiveIntensity: 2,
         metalness: 0.05,
         roughness: 0.15,
@@ -43,6 +38,35 @@ function attachFierceEyes(head: THREE.Object3D) {
   }
 }
 
+function attachNaturalEyes(head: THREE.Object3D) {
+  for (const side of [-1, 1] as const) {
+    const eyeGroup = new THREE.Group();
+    eyeGroup.position.set(side * 0.15, 0.1, 0.11);
+    eyeGroup.rotation.y = side * 0.38;
+
+    const eye = new THREE.Mesh(
+      new THREE.SphereGeometry(0.055, 12, 12),
+      new THREE.MeshStandardMaterial({
+        color: "#1a1208",
+        emissive: "#2a1a10",
+        emissiveIntensity: 0.3,
+        metalness: 0.1,
+        roughness: 0.4,
+      }),
+    );
+    eyeGroup.add(eye);
+
+    const highlight = new THREE.Mesh(
+      new THREE.SphereGeometry(0.012, 6, 6),
+      new THREE.MeshBasicMaterial({ color: "#4a3828", transparent: true, opacity: 0.6 }),
+    );
+    highlight.position.set(side * 0.015, 0.02, 0.04);
+    eyeGroup.add(highlight);
+
+    head.add(eyeGroup);
+  }
+}
+
 function attachTalonSet(
   limb: THREE.Object3D,
   side: "left" | "right",
@@ -60,9 +84,9 @@ function attachTalonSet(
       new THREE.MeshStandardMaterial({
         color: talonColor,
         emissive: talonColor,
-        emissiveIntensity: 0.3,
-        metalness: 0.1,
-        roughness: 0.3,
+        emissiveIntensity: 0.2,
+        metalness: 0.15,
+        roughness: 0.35,
       }),
     );
     talon.position.set(
@@ -70,7 +94,6 @@ function attachTalonSet(
       -reach,
       Math.abs(offset) * 0.15,
     );
-    // Tips curl down and slightly back, like gripping talons in flight.
     talon.rotation.set(
       Math.PI * 0.62,
       0,
@@ -127,11 +150,16 @@ export function attachStaticVisualAddons(model: THREE.Object3D, dragon: DragonCh
   if (effects.eyes) {
     const head = findBone(model, "Head");
     if (head) {
-      attachFierceEyes(head);
+      if (effects.eyeStyle === "natural") {
+        attachNaturalEyes(head);
+      } else {
+        attachFierceEyes(head);
+      }
     }
   }
 
   if (effects.talons) {
-    attachTalons(model, new THREE.Color(dragon.colors.primary));
+    const talonHex = effects.talonColor ?? dragon.colors.primary;
+    attachTalons(model, new THREE.Color(talonHex));
   }
 }
