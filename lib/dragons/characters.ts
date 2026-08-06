@@ -84,7 +84,7 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "seawing",
     tribe: "SeaWing",
-    name: "Tsunami",
+    name: "Turtle",
     colors: {
       primary: "#1e4d7b",
       secondary: "#2e6b9e",
@@ -156,7 +156,7 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "nightwing",
     tribe: "NightWing",
-    name: "Deathbringer",
+    name: "Moonwatcher",
     colors: {
       primary: "#1a1a2e",
       secondary: "#2d2d44",
@@ -180,7 +180,7 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "leafwing",
     tribe: "LeafWing",
-    name: "Sequoia",
+    name: "Sundew",
     colors: {
       primary: "#4caf50",
       secondary: "#81c784",
@@ -204,7 +204,7 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "icewing",
     tribe: "IceWing",
-    name: "Winter",
+    name: "Queen Snowfall",
     colors: {
       primary: "#e8f4f8",
       secondary: "#b3d9e8",
@@ -228,7 +228,7 @@ export const DRAGON_CHARACTERS: DragonCharacter[] = [
   {
     id: "hivewing",
     tribe: "HiveWing",
-    name: "Queen Wasp",
+    name: "Cricket",
     colors: {
       primary: "#f4d03f",
       secondary: "#1a1a1a",
