@@ -41,5 +41,9 @@ export type DragonCharacter = {
     fitScale?: number;
     /** How far the camera sits from the dragon (default 3.5). */
     cameraDistance?: number;
+    /** Y-axis rotation offset so the model faces the right way (radians). */
+    modelYaw?: number;
+    /** Paint top scales, underbelly, and wings in separate colors like reference art. */
+    bodyColoring?: boolean;
   };
 };
