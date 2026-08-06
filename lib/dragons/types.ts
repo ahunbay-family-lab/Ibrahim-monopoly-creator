@@ -45,5 +45,11 @@ export type DragonCharacter = {
     modelYaw?: number;
     /** Paint top scales, underbelly, and wings in separate colors like reference art. */
     bodyColoring?: boolean;
+    /** Which reference-art color layout to use (default skywing). */
+    coloringProfile?: "skywing" | "mudwing";
+    /** Eye style — fierce yellow for Peril, natural dark for Clay. */
+    eyeStyle?: "fierce" | "natural";
+    /** Talon color hex override (defaults to primary scale color). */
+    talonColor?: string;
   };
 };
