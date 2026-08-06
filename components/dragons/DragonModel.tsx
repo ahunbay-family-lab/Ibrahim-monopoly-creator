@@ -11,6 +11,7 @@ import type { DragonSpinHandle } from "@/lib/dragons/drag";
 import { DRAGON_MODEL_PATH } from "@/lib/dragons/model";
 import { DRAGON_CHARACTERS } from "@/lib/dragons/characters";
 import { attachStaticVisualAddons, createSmokeAnchors } from "@/lib/dragons/visualAddons";
+import { applyPerilBodyColors } from "@/lib/dragons/perilColors";
 import { DragonVisualAddons } from "@/components/dragons/DragonVisualAddons";
 
 /** Default size the model is scaled to so it fits the viewer. */
@@ -158,7 +159,13 @@ export const DragonModel = forwardRef<DragonSpinHandle, DragonModelProps>(
 
     const model = useMemo(() => {
       const clone = SkeletonUtils.clone(scene);
-      applyTribeColors(clone, dragon);
+
+      if (dragon.visualEffects?.bodyColoring) {
+        applyPerilBodyColors(clone, dragon);
+      } else {
+        applyTribeColors(clone, dragon);
+      }
+
       normalizeModel(clone, dragon.visualEffects?.fitScale ?? DEFAULT_FIT_SCALE);
 
       const showOutline = dragon.visualEffects?.outline !== false;
@@ -227,8 +234,10 @@ export const DragonModel = forwardRef<DragonSpinHandle, DragonModelProps>(
       }
     });
 
+    const modelYaw = dragon.visualEffects?.modelYaw ?? Math.PI / 5;
+
     return (
-      <group ref={groupRef} rotation={[0, Math.PI / 5, 0]}>
+      <group ref={groupRef} rotation={[0, modelYaw, 0]}>
         <primitive object={model} />
         <DragonVisualAddons smokeAnchors={smokeAnchors} />
       </group>

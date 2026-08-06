@@ -4,40 +4,39 @@ import { findBone } from "@/lib/dragons/visualEffects";
 
 const FIERCE_EYE_COLOR = new THREE.Color("#ffd700");
 const FIERCE_EYE_GLOW = new THREE.Color("#ffcc00");
-const TALON_COLOR = new THREE.Color("#1a1a1a");
-const TALON_TIP = new THREE.Color("#f0f0f0");
 
 function attachFierceEyes(head: THREE.Object3D) {
   for (const side of [-1, 1] as const) {
     const eyeGroup = new THREE.Group();
-    eyeGroup.position.set(side * 0.13, 0.2, 0.36);
-    eyeGroup.rotation.y = side * -0.15;
-    eyeGroup.rotation.z = side * 0.08;
+    // Jaw sits at (0, 0.03, 0.21) on the head bone — eyes go on the cheek,
+    // above the jaw and out to the side, not beneath the skull.
+    eyeGroup.position.set(side * 0.16, 0.11, 0.1);
+    eyeGroup.rotation.y = side * 0.42;
 
     const eye = new THREE.Mesh(
-      new THREE.SphereGeometry(0.13, 14, 14),
+      new THREE.SphereGeometry(0.1, 14, 14),
       new THREE.MeshStandardMaterial({
         color: FIERCE_EYE_COLOR,
         emissive: FIERCE_EYE_GLOW,
-        emissiveIntensity: 1.8,
+        emissiveIntensity: 2,
         metalness: 0.05,
-        roughness: 0.2,
+        roughness: 0.15,
       }),
     );
     eyeGroup.add(eye);
 
     const pupil = new THREE.Mesh(
-      new THREE.BoxGeometry(0.028, 0.1, 0.015),
+      new THREE.BoxGeometry(0.022, 0.085, 0.012),
       new THREE.MeshBasicMaterial({ color: "#1a0505" }),
     );
-    pupil.position.set(0, 0, 0.1);
+    pupil.position.set(0, 0, 0.09);
     eyeGroup.add(pupil);
 
     const highlight = new THREE.Mesh(
-      new THREE.SphereGeometry(0.025, 8, 8),
-      new THREE.MeshBasicMaterial({ color: "#fff8dc", transparent: true, opacity: 0.85 }),
+      new THREE.SphereGeometry(0.02, 8, 8),
+      new THREE.MeshBasicMaterial({ color: "#fff8dc", transparent: true, opacity: 0.9 }),
     );
-    highlight.position.set(side * 0.03, 0.04, 0.08);
+    highlight.position.set(side * 0.025, 0.035, 0.07);
     eyeGroup.add(highlight);
 
     head.add(eyeGroup);
@@ -48,39 +47,40 @@ function attachTalonSet(
   limb: THREE.Object3D,
   side: "left" | "right",
   kind: "foot" | "hand",
+  talonColor: THREE.Color,
 ) {
-  const spread = kind === "foot" ? 0.1 : 0.08;
-  const length = kind === "foot" ? 0.38 : 0.28;
-  const forward = kind === "foot" ? 0.1 : 0.14;
-  const downward = kind === "foot" ? -0.08 : -0.05;
+  const spread = kind === "foot" ? 0.09 : 0.07;
+  const length = kind === "foot" ? 0.34 : 0.26;
+  const reach = kind === "foot" ? 0.14 : 0.1;
 
   for (let index = 0; index < 3; index += 1) {
     const offset = (index - 1) * spread;
     const talon = new THREE.Mesh(
-      new THREE.ConeGeometry(0.052, length, 6),
+      new THREE.ConeGeometry(0.048, length, 6),
       new THREE.MeshStandardMaterial({
-        color: TALON_COLOR,
-        emissive: TALON_TIP,
-        emissiveIntensity: 0.15,
-        metalness: 0.4,
-        roughness: 0.25,
+        color: talonColor,
+        emissive: talonColor,
+        emissiveIntensity: 0.3,
+        metalness: 0.1,
+        roughness: 0.3,
       }),
     );
     talon.position.set(
       side === "left" ? -offset : offset,
-      downward,
-      forward + Math.abs(offset) * 0.25,
+      -reach,
+      Math.abs(offset) * 0.15,
     );
+    // Tips curl down and slightly back, like gripping talons in flight.
     talon.rotation.set(
-      Math.PI * 0.58,
+      Math.PI * 0.62,
       0,
-      side === "left" ? -offset * 0.35 : offset * 0.35,
+      side === "left" ? offset * 0.3 : -offset * 0.3,
     );
     limb.add(talon);
   }
 }
 
-function attachTalons(model: THREE.Object3D) {
+function attachTalons(model: THREE.Object3D, talonColor: THREE.Color) {
   const limbs: Array<{ name: string; side: "left" | "right"; kind: "foot" | "hand" }> = [
     { name: "LeftFoot", side: "left", kind: "foot" },
     { name: "RightFoot", side: "right", kind: "foot" },
@@ -91,7 +91,7 @@ function attachTalons(model: THREE.Object3D) {
   for (const { name, side, kind } of limbs) {
     const bone = findBone(model, name);
     if (bone) {
-      attachTalonSet(bone, side, kind);
+      attachTalonSet(bone, side, kind, talonColor);
     }
   }
 }
@@ -107,11 +107,11 @@ export function createSmokeAnchors(model: THREE.Object3D): {
   }
 
   const left = new THREE.Group();
-  left.position.set(-0.08, 0.08, 0.42);
+  left.position.set(-0.07, 0.06, 0.2);
   head.add(left);
 
   const right = new THREE.Group();
-  right.position.set(0.08, 0.08, 0.42);
+  right.position.set(0.07, 0.06, 0.2);
   head.add(right);
 
   return { left, right };
@@ -132,6 +132,6 @@ export function attachStaticVisualAddons(model: THREE.Object3D, dragon: DragonCh
   }
 
   if (effects.talons) {
-    attachTalons(model);
+    attachTalons(model, new THREE.Color(dragon.colors.primary));
   }
 }
